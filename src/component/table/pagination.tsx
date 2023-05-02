@@ -96,7 +96,7 @@ export const Pagination = () => {
         userLogin ? "w-[90vw]" : "w-[90vw]"
       } flex items-center justify-center flex-col`}
     >
-      <div className="flex w-[100%] gap-3">
+      <div className="flex w-[100%] justify-center items-center gap-3">
         <table className="w-[95%]" cellPadding={7}>
           <thead>
             <tr className="bg-darkBlue border-b-[1px] text-white">

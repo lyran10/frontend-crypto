@@ -44,7 +44,7 @@ export const CurrencyDropDown = ({ position }: Props) => {
           currency === cur ? "bg-alphaBlue" : ""
         } w-[100%] flex items-center gap-1 justify-end p-1 text-center cursor-pointer border-[1p x] border-darkBlue font-bold hover:bg-alphaBlue transition duration-500`}
       >
-        <div className="w-[51%] flex justify-start items-center">
+        <div className="w-[51%] me-3 md:me-0 lg:me-0 flex justify-start items-center">
           <Tippy
             theme="light"
             content={`${
