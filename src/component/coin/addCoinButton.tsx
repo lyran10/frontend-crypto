@@ -68,7 +68,7 @@ export const AddCoinButton = () => {
       <button
         disabled={checkInList() ? true : false}
         onClick={addCoin}
-        className={`flex z-50 ${
+        className={`flex ${
           checkInList() ? "" : "group"
         } font-bold self-center w-[100%]  justify-center cursor-pointer items-center gap-2 p-2 px-5 transition duration-500 ${
           checkInList()
