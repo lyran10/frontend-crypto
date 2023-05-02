@@ -18,7 +18,7 @@ export const LoginAndSignInTabs = ({
 
   return (
     <section
-      className={`${showModal} ${modalOpacity} m-auto shadow-custom rounded-md z-[1000] absolute top-0 bottom-0 left-0 right-0 transition duration-500 w-[60%] h-[500px] bg-crypto bg-cover bg-center bg-fixed`}
+      className={`${showModal} ${modalOpacity} m-auto shadow-custom rounded-md z-[1000] absolute top-0 bottom-0 left-0 right-0 transition duration-500 w-[100%] md:w-[60%] lg:w-[60%] h-[500px] bg-crypto bg-cover bg-center bg-fixed`}
     >
       <ul className="flex justify-center items-center relative">
         <li
