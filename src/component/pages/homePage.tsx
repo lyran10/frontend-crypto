@@ -30,7 +30,7 @@ export const HomePage = () => {
 
   return (
     <div
-      className={`flex relative flex-col w-[100vw] ${
+      className={`flex relative flex-col w-[100%] ${
         show ? "opacity-1" : "opacity-0"
       } duration-500 justify-center items-center gap-2`}
     >
