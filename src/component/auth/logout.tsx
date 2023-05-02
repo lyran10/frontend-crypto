@@ -25,7 +25,7 @@ export const Logout = ({ navBg, trueColor, falseColor, show }: Props) => {
 
   const logOut = async () => {
     try {
-      const { data } = await axios.get("http://localhost:4000/api/logout", {
+      const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/logout`, {
         withCredentials: true,
       });
       dispatch(userLogin(data.status));

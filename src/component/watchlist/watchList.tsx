@@ -41,7 +41,7 @@ export const WatchList = ({width,mt,sm,lg,height} :Props) => {
  const deleteCoin = async(event : React.MouseEvent<HTMLButtonElement>) => {
     setSelectedId(event.currentTarget.id)
     try {
-      const {data} = await axios.post("http://localhost:4000/api/deletecoin", {id : userDetails._id,coin : event.currentTarget.id},{
+      const {data} = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/deletecoin`, {id : userDetails._id,coin : event.currentTarget.id},{
         headers : {Authorization: `Bearer ${userDetails.token}`},withCredentials:true
       })
      await dispatch(getwatchList(userDetails))

@@ -32,7 +32,7 @@ export const AddCoinButton = () => {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        "http://localhost:4000/api/addcoin",
+        `${process.env.REACT_APP_SERVER_URL}/api/addcoin`,
         { id: userDetails._id, coin: id },
         {
           headers: { Authorization: `Bearer ${userDetails.token}` },

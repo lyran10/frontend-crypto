@@ -31,7 +31,7 @@ export const getwatchList = createAsyncThunk(
         list: { watchlist },
       },
     } = await axios.post(
-      "http://localhost:4000/api/list",
+      `${process.env.REACT_APP_SERVER_URL}/api/list`,
       { id: _id },
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -48,7 +48,7 @@ export const findUser = createAsyncThunk(
     const {
       data: { msg },
     } = await axios.post(
-      "http://localhost:4000/api/expiry",
+      `${process.env.REACT_APP_SERVER_URL}/api/expiry`,
       { id: id },
       {
         headers: { Authorization: `Bearer ${token}` },
