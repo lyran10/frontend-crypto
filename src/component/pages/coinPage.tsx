@@ -44,7 +44,7 @@ export const CoinPage = () => {
 
   return (
     <div
-      className={`p-2 bg-darkBlue flex ${
+      className={`p-2 bg-darkBlue flex min-h-[500px] ${
         show ? "opacity-1" : "opacity-0"
       } duration-500 w-[100%]`}
     >
