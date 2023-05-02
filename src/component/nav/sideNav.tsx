@@ -25,16 +25,21 @@ export const SideNav = ({
 
   return (
     <div
-      className={`h-[80vh] flex flex-col p-3 gap-10 rounded-md w-full bg-white absolute right-0 left-0 top-20 bottom-0 ${showSideNav} ${translateSideNav} transition duration-500`}
+      className={`h-[80vh] flex flex-col p-3 gap-10 z-[999] rounded-md w-full bg-white absolute right-0 left-0 top-20 bottom-0 ${showSideNav} ${translateSideNav} transition duration-500`}
     >
+      {userDetails._id ?
+      <>
       <span className="flex gap-2 items-center text-darkBlue">
       <img
         className="inline-block h-12 w-12 rounded-full cursor-pointer ring-2 ring-white"
         src="https://www.arlis.umd.edu/sites/default/files/default_images/avatardefault_92824.png"
         alt="image"
       />
-        {userDetails._id ? <span className="text-darkBlue">{userDetails.email}</span>  : null}
+         <span className="text-darkBlue">{userDetails.email}</span>  
+
       </span>
+      </>
+      : null}
       <div className="flex flex-col gap-2">
         <h4 className="text-center font-bold">Change Currency</h4>
         <CurrencyDropDown position="static" />
