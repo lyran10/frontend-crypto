@@ -8,7 +8,7 @@ type Props = {
 
 export const SelectButton = ({ children, selected, onClick }: Props) => {
   return (
-    <span
+    <span className="text-[12px] p-[5px] md:p-[10px] lg:p-[10px]  md:text-[15px] lg:text-[15px]"
       style={{
         cursor: "pointer",
         borderRadius: "5px",
@@ -16,7 +16,6 @@ export const SelectButton = ({ children, selected, onClick }: Props) => {
         backgroundColor: selected ? "gold" : "",
         color: selected ? "black" : "",
         fontWeight: selected ? "700" : "500",
-        padding: "10px",
       }}
       onClick={onClick}
     >

@@ -99,7 +99,7 @@ export const NavBar = () => {
 
   return (
     <nav
-      className={`flex fixed flex-col w-[100%] trasition duration-500 items-center bottom-[100%] justify-center rounded-lg`}
+      className={`flex fixed flex-col w-[100%]  nava trasition duration-500 items-center bottom-[100%] justify-center rounded-lg`}
     >
       <div
         className={`flex justify-between items-center p-2 bg-[rgba(0,0,0,.18)] rounded-lg relative top-[100px] w-[80%]`}

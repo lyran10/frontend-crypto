@@ -65,7 +65,7 @@ export const CoinChart = ({ id }: Props) => {
           }}
         />
       )}
-      <div className="flex gap-2 flex-wrap">
+      <div className="flex gap-2 flex-wrap mb-3">
         {chartDays.map((data, index) => {
           return (
             <SelectButton
