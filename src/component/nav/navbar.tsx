@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 // import { LoginAndSignInTabs } from "../auth/loginAndSignInTabs";
-import { HamburgerButton } from "./hamburgerButton";
+// import { HamburgerButton } from "./hamburgerButton";
 import { SideNav } from "./sideNav";
 // import { SignInButton } from "../auth/signInButton";
 import { useSelector, TypedUseSelectorHook } from "react-redux/es/exports";
@@ -145,14 +145,14 @@ export const NavBar = () => {
               />
             )}
           </li> */}
-          <li>
+          {/* <li>
             <HamburgerButton
               translateSideNav={translateSideNav}
               setTranslateSideNav={setTranslateSideNav}
               setShowSideNav={setShowSideNav}
               showSideNav={showSideNav}
             />
-          </li>
+          </li> */}
         </ul>
         <SideNav
           ModalIn={ModalIn}
