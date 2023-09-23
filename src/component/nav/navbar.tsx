@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { LoginAndSignInTabs } from "../auth/loginAndSignInTabs";
+// import { LoginAndSignInTabs } from "../auth/loginAndSignInTabs";
 import { HamburgerButton } from "./hamburgerButton";
 import { SideNav } from "./sideNav";
-import { SignInButton } from "../auth/signInButton";
+// import { SignInButton } from "../auth/signInButton";
 import { useSelector, TypedUseSelectorHook } from "react-redux/es/exports";
 import { RootState } from "../redux/store";
 import { translateEffects, opacityEffects } from "../redux/reducer";
 import { useDispatch } from "react-redux/es/exports";
 import { AppDispatch } from "../redux/store";
 import { Link } from "react-router-dom";
-import { Logout } from "../auth/logout";
+// import { Logout } from "../auth/logout";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 
@@ -127,8 +127,8 @@ export const NavBar = () => {
               </span>
             </li>
           ) : null}
-          <li>
-            {userLogin ? (
+          {/* <li> */}
+            {/* {userLogin ? (
               <Logout
                 navBg={navBg}
                 show="hidden"
@@ -144,7 +144,7 @@ export const NavBar = () => {
                 falseColor="text-offWhite"
               />
             )}
-          </li>
+          </li> */}
           <li>
             <HamburgerButton
               translateSideNav={translateSideNav}
@@ -160,11 +160,11 @@ export const NavBar = () => {
           showSideNav={showSideNav}
           translateSideNav={translateSideNav}
         />
-        <LoginAndSignInTabs
+        {/* <LoginAndSignInTabs
           showModal={showModal}
           modalOpacity={modalOpacity}
           modalOut={ModalOut}
-        />
+        /> */}
       </div>
 
       <div
