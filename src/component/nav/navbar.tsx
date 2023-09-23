@@ -167,7 +167,7 @@ export const NavBar = () => {
         /> */}
       </div>
 
-      <div
+      {/* <div
         onClick={() => ModalOut()}
         className={`bg-darkBlue h-screen w-[100vw] transition duration-300 top-[100%] bottom-0 left-0 right-0  absolute ${overlayOpacity} ${showOverlay}`}
       ></div>
@@ -175,7 +175,7 @@ export const NavBar = () => {
         className={`bg-lightBlue duration-300 absolute px-2 font-bold rounded-md ${logoutMsg}`}
       >
         Logged out Successfully
-      </div>
+      </div> */}
     </nav>
   );
 };
