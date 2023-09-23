@@ -7,8 +7,8 @@ import { AppDispatch } from "../redux/store";
 import { RootState } from "../redux/store";
 import { useSelector, TypedUseSelectorHook } from "react-redux/es/exports";
 import { findUser } from "../redux/actions";
-import { WatchList } from "../watchlist/watchList";
-import { CurrencyDropDown } from "../nav/currencyDropDown";
+// import { WatchList } from "../watchlist/watchList";
+// import { CurrencyDropDown } from "../nav/currencyDropDown";
 
 export const HomePage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -39,7 +39,7 @@ export const HomePage = () => {
       <NavBar />
       <Banner />
       <TableData />
-      {userLog ? (
+      {/* {userLog ? (
           <WatchList
             height="h-[97vh]"
             sm="hidden"
@@ -47,8 +47,8 @@ export const HomePage = () => {
             width="w-[20%]"
             mt="mt-[100px]"
           />
-         ) : null}
-         <CurrencyDropDown/>
+         ) : null} */}
+         {/* <CurrencyDropDown/> */}
     </div>
   );
 };

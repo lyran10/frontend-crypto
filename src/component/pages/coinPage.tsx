@@ -3,8 +3,8 @@ import { NavBar } from "../nav/navbar";
 import { CoinInfo } from "../coin/coinInfo";
 import { useParams } from "react-router-dom";
 import { CoinChart } from "../coin/coinChart";
-import { WatchList } from "../watchlist/watchList";
-import { CurrencyDropDown } from "../nav/currencyDropDown";
+// import { WatchList } from "../watchlist/watchList";
+// import { CurrencyDropDown } from "../nav/currencyDropDown";
 import { RootState, AppDispatch } from "../redux/store";
 import {
   useSelector,
@@ -53,7 +53,7 @@ export const CoinPage = () => {
       <div className="flex bg-darkBlue w-[100%] justify-center flex-col md:flex-row items-center lg:flex-row">
         <CoinInfo coinData={singlecoin} />
         <CoinChart id={id} />
-        {userLogin ? (
+        {/* {userLogin ? (
           <WatchList
             height="h-[97vh]"
             sm="hidden"
@@ -61,8 +61,8 @@ export const CoinPage = () => {
             width="w-[20%]"
             mt="mt-[100px]"
           />
-        ) : null}
-          <CurrencyDropDown/>
+        ) : null} */}
+          {/* <CurrencyDropDown/> */}
       </div>
     </div>
   );

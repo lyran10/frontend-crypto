@@ -6,7 +6,7 @@ import {
   TypedUseSelectorHook,
 } from "react-redux/es/exports";
 import { AppDispatch, RootState } from "../redux/store";
-import { Table } from "./table";
+// import { Table } from "./table";
 import { coinssList } from "../redux/actions";
 
 export const TableData = () => {
@@ -45,7 +45,7 @@ export const TableData = () => {
           </span>
         </div>
         <Input />
-        <Table />
+        {/* <Table /> */}
       </div>
     </div>
   );
