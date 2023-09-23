@@ -1,26 +1,18 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux/es/exports";
 import { AppDispatch } from "../redux/store";
 import { RootState } from "../redux/store";
 import { useSelector, TypedUseSelectorHook } from "react-redux/es/exports";
 import { currencyChange, symbolChange } from "../redux/reducer";
 import { coinssList } from "../redux/actions";
-import { TiTick } from "react-icons/ti";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
-import india from "./india.jpg"
-
-type Props = {
-  // position: string;
-  // showDropdown : boolean
-};
 
 export const CurrencyDropDown = () => {
   const selector: TypedUseSelectorHook<RootState> = useSelector;
   const currency = selector((state) => state.currencyData.currency);
   const dispatch = useDispatch<AppDispatch>();
-  const curRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {}, []);
 
@@ -49,13 +41,6 @@ export const CurrencyDropDown = () => {
       }`}
       placement="top"
     >
-      {/* <div
-      
-      // onClick={() => onBasemapChange(id)}
-      className={` w-0 hover:w-full px-3 rounded-full flex cursor-pointer items-center`}> */}
-       {/* <div className="w-28">
-        <p className="text-sm text-slate-700">{name}</p>
-      </div> */}
       <div
       id={cur}
       onClick={handleChange}
@@ -65,16 +50,7 @@ export const CurrencyDropDown = () => {
       {symbol}
       </div>
       <span className={`${cur === currency ? "text-[#06b6d4]" : ""} text-sm font-bold duration-500 absolute right-5 group-hover:opacity-[1] opacity-0`}>{cur}</span>
-     
-        {/* {img && ( */}
-          {/* <img
-            // src={img}
-            alt={"image"}
-            className={`rounded-full shadow-sideBarShadow h-8 w-8 absolute ${ currency === cur ? "scale-75" : ""} right-0 duration-300 group-hover:scale-75`}
-          /> */}
-        {/* )} */}
       </div>          
-    {/* </div> */}
     </Tippy>
     );
   };
@@ -89,33 +65,3 @@ export const CurrencyDropDown = () => {
     </div>
   );
 };
-
-
-
-{/* <button
-onClick={handleChange}
-ref={curRef}
-id={cur}
-className={`${
-  currency === cur ? "bg-alphaBlue" : ""
-} w-[100%] flex items-center gap-1 justify-end p-1 text-center cursor-pointer border-[1px] border-darkBlue font-bold hover:bg-alphaBlue transition duration-500`}
->
-<div className={`w-[51%] duration- me-3 md:me-0 lg:me-0 flex justify-start items-center`}>
-  <Tippy
-    theme="light"
-    content={`${
-      cur === "USD"
-        ? "US Dollars"
-        : cur === "ILS"
-        ? "Israeli Shekel"
-        : "Indian Rupee"
-    }`}
-    placement="left"
-  >
-    <span>{cur}</span>
-  </Tippy>
-  {currency === cur ? (
-    <TiTick style={{ color: "#34c38f", marginLeft: "5px" }} />
-  ) : null}
-</div>
-</button> */}

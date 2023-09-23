@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { LoginAndSignInTabs } from "../auth/loginAndSignInTabs";
-import { FiChevronDown } from "react-icons/fi";
-import { CurrencyDropDown } from "./currencyDropDown";
 import { HamburgerButton } from "./hamburgerButton";
 import { SideNav } from "./sideNav";
 import { SignInButton } from "../auth/signInButton";
@@ -12,7 +10,6 @@ import { useDispatch } from "react-redux/es/exports";
 import { AppDispatch } from "../redux/store";
 import { Link } from "react-router-dom";
 import { Logout } from "../auth/logout";
-import { WatchList } from "../watchlist/watchList";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 
@@ -79,13 +76,6 @@ export const NavBar = () => {
       };
       dispatch(translateEffects(translateObj));
     }, 400);
-  };
-
-  const openDropDown = () => {
-    setShowDropdown((drop) => (drop === false ? true : false));
-    setArrow((arrow) =>
-      arrow === "rotate-[0deg]" ? "rotate-[180deg]" : "rotate-[0deg]"
-    );
   };
 
   // const convertFile = async (file: any) => {};
@@ -189,21 +179,3 @@ export const NavBar = () => {
     </nav>
   );
 };
-
-
-
-{/* <li
-onClick={openDropDown}
-className={`${
-  showDropdown ? "text-lightBlue bg-alphaBlue" : "text-offWhite"
-}  cursor-pointer flex justify-center transition duration-500 px-5 hover:bg-alphaBlue hover:text-lightBlue items-center me-[20px]`}
->
-<div
-  className={`hidden md:flex lg:flex justify-center items-center font-bold gap-1 ${
-    navBg ? "text-[#191825]" : "text-offWhite"
-  }`}
->
-  <span>Change Currency</span>
-  <FiChevronDown className={`${arrow} transition duration-200`} />
-</div>
-</li> */}

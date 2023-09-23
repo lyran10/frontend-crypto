@@ -6,7 +6,6 @@ import { RootState } from "../redux/store";
 import { useNavigate } from "react-router-dom";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
-import { WatchList } from "../watchlist/watchList";
 import { TrendingCoins } from "../utils/interface";
 
 export const Table = () => {
