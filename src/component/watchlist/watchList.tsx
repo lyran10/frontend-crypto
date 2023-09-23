@@ -101,7 +101,7 @@ useEffect(() => {
           <span className={`text-[#f5f5f5] font-bold text-center ml-10 text-[20px] ${show ? "visible" : "invisible"}`}>Watch List</span>
         <div onClick={handleNav} className={`w-[70px] h-[70px] duration-500 rounded-md ${show ? "bg-transparent relative" : "bg-[#06b6d4] absolute right-4 bottom-[140%]"} flex justify-center items-center cursor-pointer  text-[#f5f5f5]`}>
         {/* <BsCoin className='text-[#f5f5f5] text-[40px]'/> */}
-        <Button arrow={arrow}/>
+        {/* <Button arrow={arrow}/> */}
       </div>
       </div>
       <div className={`${show ? "w-[90vw] h-[450px]  md:w-[400px] lg:w-[400px] opacity-1" : "w-0 h-0 opacity-0 translate-x-[200px]"} duration-500`}>
