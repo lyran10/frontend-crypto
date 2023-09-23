@@ -9,8 +9,6 @@ import {
   clearwatchlist,
   logoutmsg,
 } from "../redux/reducer";
-import { useSelector, TypedUseSelectorHook } from "react-redux/es/exports";
-import { RootState } from "../redux/store";
 
 type Props = {
   navBg: boolean;
@@ -21,22 +19,23 @@ type Props = {
 
 export const Logout = ({ navBg, trueColor, falseColor, show }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
-  const selector: TypedUseSelectorHook<RootState> = useSelector;
 
   const logOut = async () => {
     try {
       const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/logout`, {
         withCredentials: true,
       });
-      dispatch(userLogin(data.status));
-      dispatch(details({ _id: "", email: "", token: "" }));
-      dispatch(logoutmsg("top-[150px]"));
-      setTimeout(() => {
-        dispatch(logoutmsg("top-[0px]"));
-      }, 2000);
-      dispatch(clearwatchlist([]));
-      localStorage.removeItem("id");
-      localStorage.removeItem("token");
+      if(!data.status){
+        dispatch(userLogin(data.status));
+        dispatch(details({ _id: "", email: "", token: "" }));
+        dispatch(logoutmsg("top-[150px]"));
+        setTimeout(() => {
+          dispatch(logoutmsg("top-[0px]"));
+        }, 2000);
+        dispatch(clearwatchlist([]));
+        localStorage.removeItem("id");
+        localStorage.removeItem("token");
+      }
     } catch (error) {
       console.log(error);
     }

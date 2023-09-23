@@ -7,9 +7,10 @@ import { TiDelete } from "react-icons/ti";
 type Props = {
   deleteCoin: (event: React.MouseEvent<HTMLButtonElement>) => void;
   coinId: string;
+  selectedCoin : string
 };
 
-export const DeleteCoinButton = ({ deleteCoin, coinId }: Props) => {
+export const DeleteCoinButton = ({ deleteCoin, coinId,selectedCoin }: Props) => {
   return (
     <Tippy theme="light" content="Delete coin">
       <button
@@ -17,7 +18,7 @@ export const DeleteCoinButton = ({ deleteCoin, coinId }: Props) => {
         onClick={(event) => deleteCoin(event)}
         className="cursor-pointer p-0 mt-1"
       >
-        <TiDelete size={20} />
+        <TiDelete className={`${selectedCoin === coinId ? "text-darkBlue" : "text-offWhite"}`} size={20} />
       </button>
     </Tippy>
   );

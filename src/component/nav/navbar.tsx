@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux/es/exports";
 import { AppDispatch } from "../redux/store";
 import { Link } from "react-router-dom";
 import { Logout } from "../auth/logout";
+import { WatchList } from "../watchlist/watchList";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 
@@ -87,7 +88,7 @@ export const NavBar = () => {
     );
   };
 
-  const convertFile = async (file: any) => {};
+  // const convertFile = async (file: any) => {};
 
   const handleClick = (e: any) => {
     e.preventDefault();
@@ -99,7 +100,7 @@ export const NavBar = () => {
 
   return (
     <nav
-      className={`flex fixed flex-col w-[100%]  nava trasition duration-500 items-center bottom-[100%] justify-center rounded-lg`}
+      className={`flex fixed flex-col w-[100%] nava trasition duration-500 items-center bottom-[100%] justify-center rounded-lg z-[1000]`}
     >
       <div
         className={`flex justify-between items-center p-2 bg-[rgba(0,0,0,.18)] rounded-lg relative top-[100px] w-[80%]`}
@@ -136,21 +137,6 @@ export const NavBar = () => {
               </span>
             </li>
           ) : null}
-          <li
-            onClick={openDropDown}
-            className={`${
-              showDropdown ? "text-lightBlue bg-alphaBlue" : "text-offWhite"
-            }  cursor-pointer flex justify-center transition duration-500 px-5 hover:bg-alphaBlue hover:text-lightBlue items-center me-[20px]`}
-          >
-            <div
-              className={`hidden md:flex lg:flex justify-center items-center font-bold gap-1 ${
-                navBg ? "text-[#191825]" : "text-offWhite"
-              }`}
-            >
-              <span>Change Currency</span>
-              <FiChevronDown className={`${arrow} transition duration-200`} />
-            </div>
-          </li>
           <li>
             {userLogin ? (
               <Logout
@@ -169,11 +155,6 @@ export const NavBar = () => {
               />
             )}
           </li>
-          {showDropdown ? (
-            <li>
-              <CurrencyDropDown position="absolute" />
-            </li>
-          ) : null}
           <li>
             <HamburgerButton
               translateSideNav={translateSideNav}
@@ -195,6 +176,7 @@ export const NavBar = () => {
           modalOut={ModalOut}
         />
       </div>
+
       <div
         onClick={() => ModalOut()}
         className={`bg-darkBlue h-screen w-[100vw] transition duration-300 top-[100%] bottom-0 left-0 right-0  absolute ${overlayOpacity} ${showOverlay}`}
@@ -207,3 +189,21 @@ export const NavBar = () => {
     </nav>
   );
 };
+
+
+
+{/* <li
+onClick={openDropDown}
+className={`${
+  showDropdown ? "text-lightBlue bg-alphaBlue" : "text-offWhite"
+}  cursor-pointer flex justify-center transition duration-500 px-5 hover:bg-alphaBlue hover:text-lightBlue items-center me-[20px]`}
+>
+<div
+  className={`hidden md:flex lg:flex justify-center items-center font-bold gap-1 ${
+    navBg ? "text-[#191825]" : "text-offWhite"
+  }`}
+>
+  <span>Change Currency</span>
+  <FiChevronDown className={`${arrow} transition duration-200`} />
+</div>
+</li> */}

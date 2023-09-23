@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Banner } from "../banner/banner";
 import { NavBar } from "../nav/navbar";
-import { Table } from "../table/table";
+import { TableData } from "../table/tableData";
 import { useDispatch } from "react-redux/es/exports";
 import { AppDispatch } from "../redux/store";
 import { RootState } from "../redux/store";
 import { useSelector, TypedUseSelectorHook } from "react-redux/es/exports";
 import { findUser } from "../redux/actions";
+import { WatchList } from "../watchlist/watchList";
+import { CurrencyDropDown } from "../nav/currencyDropDown";
 
 export const HomePage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -36,7 +38,17 @@ export const HomePage = () => {
     >
       <NavBar />
       <Banner />
-      <Table />
+      <TableData />
+      {userLog ? (
+          <WatchList
+            height="h-[97vh]"
+            sm="hidden"
+            lg="lg:flex"
+            width="w-[20%]"
+            mt="mt-[100px]"
+          />
+         ) : null}
+         <CurrencyDropDown/>
     </div>
   );
 };

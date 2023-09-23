@@ -4,6 +4,7 @@ import { CoinInfo } from "../coin/coinInfo";
 import { useParams } from "react-router-dom";
 import { CoinChart } from "../coin/coinChart";
 import { WatchList } from "../watchlist/watchList";
+import { CurrencyDropDown } from "../nav/currencyDropDown";
 import { RootState, AppDispatch } from "../redux/store";
 import {
   useSelector,
@@ -61,6 +62,7 @@ export const CoinPage = () => {
             mt="mt-[100px]"
           />
         ) : null}
+          <CurrencyDropDown/>
       </div>
     </div>
   );

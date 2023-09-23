@@ -14,8 +14,14 @@ import {
 } from "../redux/reducer";
 import { useSelector, TypedUseSelectorHook } from "react-redux/es/exports";
 import { RootState } from "../redux/store";
+import {FaUserCircle} from "react-icons/fa"
+import {RiLockPasswordLine} from "react-icons/ri"
 
-export const Login = () => {
+type Props = {
+  show : boolean
+}
+
+export const Login = ({show} : Props) => {
   const dispatch = useDispatch<AppDispatch>();
   const selector: TypedUseSelectorHook<RootState> = useSelector;
   const translate = selector((state) => state.currencyData.translate);
@@ -80,33 +86,39 @@ export const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center flex-col gap-6 h-100">
-      <span className="mt-10 font-black text-[40px] text-white">LOGIN</span>
+    <div className={`flex justify-center items-start px-5 absolute flex-col gap-6 duration-500 ${!show ? "w-full opacity-1 visible" :"w-0 opacity-0 invisible"}`}>
+      <span className={`mt-10 font-black text-[40px] text-[#f5f5f5] text-start relative before:absolute before:content-'' before:w-[30%] before:h-[1px] before:bg-[#06b6d4] before:top-[100%]`}>LOGIN</span>
       <form
         id="form"
         onSubmit={handleSubmit}
         className="w-[100%] flex flex-col justify-center items-center gap-5"
         action=""
       >
+        <div className="flex justify-center items-center w-full">
+        <FaUserCircle className="text-[#06b6d4] text-[2.5rem] border-b border-[#f5f5f5] mt-[1px] p-1"/>
         <input
           onChange={handleChange}
-          className="p-2 placeholder:text-offWhite bg-offWhite outline-1 outline-lightBlue rounded-md font-semibold w-[50%]"
+          className="outline-none border-b p-2 bg-[rgba(0,0,0,0)] text-[#f5f5f5] font-semibold w-[100%]"
           type="email"
           placeholder="Email"
           name="email"
         />
+        </div>
 
+        <div className="flex justify-center items-center w-full">
+        <RiLockPasswordLine className="text-[#06b6d4] text-[2.5rem] border-b border-[#f5f5f5] mt-[1px] p-1"/>
         <input
           onChange={handleChange}
-          className="p-2 bg-offWhite outline-1 outline-lightBlue rounded-md font-semibold w-[50%]"
+          className="outline-none p-2 border-b bg-[rgba(0,0,0,0)] text-[#f5f5f5]  font-semibold w-[100%]"
           type="password"
           placeholder="Password"
           name="password"
         />
+        </div>
 
         <button
           type="submit"
-          className="mt-5 p-2 px-5 rounded-md bg-darkBlue border text-lightBlue font-bold transition duration-500 hover:bg-alphaBlue hover:text-lightBlue"
+          className="mt-5 p-2 w-[100%] px-5 bg-[#06b6d4] text-[#f5f5f5]  font-bold transition duration-500 hover:-translate-y-2"
         >
           {isLoading ? (
             <span className="relative h-3 w-3">
@@ -119,6 +131,7 @@ export const Login = () => {
           </span>
         </button>
       </form>
+      <span className={`text-[#f5f5f5] text-center font-bold ${!show ? "opacity-1 transition-opacity delay-500 duration-500" :"opacity-0"}`}>Access your crypto holdings and embrace financial freedom with our login.</span>
       <AlertMsg bg="bg-lightBlue" />
     </div>
   );

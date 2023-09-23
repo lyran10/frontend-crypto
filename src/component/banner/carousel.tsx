@@ -21,6 +21,10 @@ export const Carousel = () => {
     setCoins(data);
   };
 
+  useEffect(() => {
+    getData();
+  }, [currency]);
+
   const next = () => {
     if (index === coins.length - 1) {
       return;
@@ -34,20 +38,17 @@ export const Carousel = () => {
     }
     setIndex((index) => index - 1);
   };
-  useEffect(() => {
-    getData();
-  }, [currency]);
-
+ 
   return (
     <div className="flex gap-[200px] mt-11 transition duration-300">
       {coins.length ? (
         <div className="flex justify-between items-center w-[95vw]">
           <IoIosArrowBack
             onClick={prev}
-            className="cursor-pointer p-2 bg-lightBlue rounded-full transition duration-500 hover:scale-90 hover:-translate-x-1"
+            className="cursor-pointer p-2 bg-alphaBlue text-[#f5f5f5] rounded-full transition duration-500 hover:scale-90 hover:-translate-x-1"
             size={40}
           />
-          <div className={`flex flex-col gap-[20px] w-[100px] duration-500`}>
+          <div className={`flex flex-col gap-[20px] w-[100px] duration-500 relative`}>
             <img
               src={coins[index]?.image}
               alt={coins[index]?.name}
@@ -58,7 +59,7 @@ export const Carousel = () => {
                 {coins[index]?.symbol}
               </span>
               <span
-                className={`text-white text=[20px] font-bold ${
+                className={`text-[#f5f5f5] text-[20px] font-bold ${
                   coins[index]?.price_change_percentage_24h >= 0
                     ? "text-[rgb(14,203,129)]"
                     : "text-[#D2042D]"
@@ -72,7 +73,7 @@ export const Carousel = () => {
           </div>
           <IoIosArrowForward
             onClick={next}
-            className="cursor-pointer p-2 bg-lightBlue rounded-full hover:scale-90 hover:translate-x-1 transition duration-500"
+            className="cursor-pointer p-2 bg-alphaBlue text-[#f5f5f5] rounded-full hover:scale-90 hover:translate-x-1 transition duration-500"
             size={40}
           />
         </div>

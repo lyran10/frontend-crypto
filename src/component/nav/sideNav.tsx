@@ -42,7 +42,7 @@ export const SideNav = ({
       : null}
       <div className="flex flex-col gap-2">
         <h4 className="text-center font-bold">Change Currency</h4>
-        <CurrencyDropDown position="static" />
+        {/* <CurrencyDropDown position="static" /> */}
       </div>
       {userLogin ? (
         <WatchList
