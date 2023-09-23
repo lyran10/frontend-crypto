@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import { LoginAndSignInTabs } from "../auth/loginAndSignInTabs";
 // import { HamburgerButton } from "./hamburgerButton";
-import { SideNav } from "./sideNav";
+// import { SideNav } from "./sideNav";
 // import { SignInButton } from "../auth/signInButton";
 import { useSelector, TypedUseSelectorHook } from "react-redux/es/exports";
 import { RootState } from "../redux/store";
@@ -154,12 +154,12 @@ export const NavBar = () => {
             />
           </li> */}
         </ul>
-        <SideNav
+        {/* <SideNav
           ModalIn={ModalIn}
           navBg={navBg}
           showSideNav={showSideNav}
           translateSideNav={translateSideNav}
-        />
+        /> */}
         {/* <LoginAndSignInTabs
           showModal={showModal}
           modalOpacity={modalOpacity}
