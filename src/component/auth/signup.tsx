@@ -48,7 +48,7 @@ export const Signup = ({show} :Props) => {
     <div className={`flex justify-start items-start px-5 absolute flex-col gap-6 h-100 duration-500 ${show ? "w-full opacity-1 visible" :"w-0 opacity-0 invisible"}`} >
       <span className={`mt-10 font-black text-[40px] text-[#f5f5f5] text-start relative before:absolute before:content-'' before:w-[30%] before:h-[1px] before:bg-[#06b6d4] before:top-[100%]`}>SIGN UP</span>
       <form
-        id="form"
+        id="formSignUp"
         onSubmit={handleSubmit}
         className="w-[100%] flex flex-col justify-center items-center gap-5"
         action=""

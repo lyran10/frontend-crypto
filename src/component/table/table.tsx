@@ -102,7 +102,7 @@ export const Table = () => {
       ? visibleArray.map((row: any, index: number) => {
           let profit = row.price_change_percentage_24h >= 0;
           return (
-            <div className="w-[300px] h-[250px] group relative m-auto flex justify-center p-2 gap-5 items-center shadow-cards rounded-md">
+            <div key={index} className="w-[300px] h-[250px] group relative m-auto flex justify-center p-2 gap-5 items-center shadow-cards rounded-md">
               <div className="flex flex-col w-full justify-center items-center">
               <img src={row?.image} className="w-[100px] h-[100px]" />
               <span className="text-[14px] text-center absolute bottom-[93%] bg-alphaBlue text-darkBlue py-1 px-2 rounded-md">{row.symbol.toUpperCase()}</span>

@@ -89,7 +89,7 @@ export const Login = ({show} : Props) => {
     <div className={`flex justify-center items-start px-5 absolute flex-col gap-6 duration-500 ${!show ? "w-full opacity-1 visible" :"w-0 opacity-0 invisible"}`}>
       <span className={`mt-10 font-black text-[40px] text-[#f5f5f5] text-start relative before:absolute before:content-'' before:w-[30%] before:h-[1px] before:bg-[#06b6d4] before:top-[100%]`}>LOGIN</span>
       <form
-        id="form"
+        id="formLogin"
         onSubmit={handleSubmit}
         className="w-[100%] flex flex-col justify-center items-center gap-5"
         action=""
