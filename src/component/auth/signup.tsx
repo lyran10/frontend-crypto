@@ -25,6 +25,7 @@ export const Signup = ({show} :Props) => {
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     setIsLoading(true);
 
     const {email,password} = user
@@ -35,12 +36,11 @@ export const Signup = ({show} :Props) => {
     }
 
     if(!password){
-      dispatch(msg("Email reqiured"))
+      dispatch(msg("Password reqiured"))
       setIsLoading(false);
       return
     }
 
-    e.preventDefault();
     try {
       const { data } = await axios.post(
         `${process.env.REACT_APP_SERVER_URL}/api/signup`,

@@ -16,11 +16,11 @@ export const AlertMsg = ({ bg }: Props) => {
   const alertMsg = selector((state) => state.currencyData.alertMsg);
   const alertMoveUp = selector((state) => state.currencyData.alertMoveUp);
 
-  useEffect(() => {}, [alertMsg, alertMoveUp]);
-
+  // useEffect(() => {}, [alertMsg, alertMoveUp]);
+  // {alertMoveUp}
   return (
     <div
-      className={`transition flex justify-between gap-3 items-center px-2 left-[30%] duration-300 absolute h-[40px] font-bold ${alertMoveUp} ${bg} rounded-md`}
+      className={`transition flex justify-between gap-3 items-center px-2 left-[30%] duration-300 absolute h-[40px] font-bold $ ${bg} -translate-y-[230px] rounded-md`}
     >
       <span className="">{alertMsg}</span>
       <IoCloseSharp
