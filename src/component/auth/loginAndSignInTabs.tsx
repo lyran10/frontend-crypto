@@ -17,7 +17,7 @@ export const LoginAndSignInTabs = ({
   // bg-crypto bg-cover bg-center bg-fixed
   return (
     <section
-      className={`m-auto shadow-custom rounded-md z-[1000] absolute top-0 bottom-0 left-0 right-0 transition duration-500 w-[100%] md:w-[70%] lg:w-[40%] h-[500px] bg-[rgba(0,0,0,0.7)]`}
+      className={`${showModal} ${modalOpacity} m-auto shadow-custom rounded-md z-[1000] absolute top-0 bottom-0 left-0 right-0 transition duration-500 w-[100%] md:w-[70%] lg:w-[40%] h-[500px] bg-[rgba(0,0,0,0.7)]`}
     >
       <ul className="relative flex">
         <li

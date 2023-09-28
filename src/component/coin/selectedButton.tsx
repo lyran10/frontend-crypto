@@ -8,7 +8,7 @@ type Props = {
 
 export const SelectButton = ({ children, selected, onClick }: Props) => {
   return (
-    <span className="text-[12px] p-[5px] md:p-[10px] lg:p-[10px]  md:text-[15px] lg:text-[15px]"
+    <span className="text-[12px] p-[5px] md:p-[10px] lg:p-[10px] md:text-[15px] lg:text-[15px]"
       style={{
         cursor: "pointer",
         borderRadius: "5px",
