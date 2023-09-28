@@ -90,7 +90,7 @@ export const NavBar = () => {
 
   return (
     <nav
-      className={`flex fixed flex-col w-[100%] nava trasition duration-500 items-center bottom-[100%] justify-center rounded-lg z-[1000]`}
+      className={`flex fixed flex-col w-[100%] transition duration-500 items-center bottom-[100%] justify-center rounded-lg z-[1000]`}
     >
       <div
         className={`flex justify-between items-center p-2 bg-[rgba(0,0,0,.18)] rounded-lg relative top-[100px] w-[80%]`}
