@@ -19,6 +19,7 @@ const initialState: State = {
     showModal: "-translate-y-[800px]",
     showOverlay: "translate-x-[1700px]",
   },
+  // opacity-0
   opacity: {
     modalOpacity: "opacity-0",
     overlayOpacity: "opacity-0",
