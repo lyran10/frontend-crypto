@@ -62,7 +62,7 @@ export const CurrencyDropDown = ({id} :Props) => {
 
   return (
     <div
-      className={`flex flex-col gap-3 fixed ${id === "home" ? "justify-start items-start left-[5px] bottom-0" : "justify-end items-end top-[5%]"} rounded-md text-offWhite transition duration-500 right-[5px]`}
+      className={`flex flex-col w-0 gap-3 fixed ${id === "home" ? "justify-start items-start left-[5px] bottom-0" : "justify-end items-end top-[45%] md:top-[5%] lg:top-[5%]"} rounded-md text-offWhite transition duration-500 right-[5px]`}
     >
       {items("USD","$")}
       {items("ILS","₪")}
