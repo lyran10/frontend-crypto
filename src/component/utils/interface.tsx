@@ -85,4 +85,5 @@ export interface State {
   chartData: any[];
   days: number;
   logoutMsg: string;
+  showWatchList : boolean;
 }

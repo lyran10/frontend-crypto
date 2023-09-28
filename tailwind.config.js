@@ -25,7 +25,13 @@ module.exports = {
       banner : "url(https://images.squarespace-cdn.com/content/v1/5d4cfd87082420000108b311/1566718849902-809OYSILCPJLAKT97XWE/futuristic-technology-abstract-background-beautiful-footage-087637197_prevstill.jpeg?format=2500w);",
       crypto : "url(https://blog.equinix.com/wp-content/uploads/2017/10/blockchain.jpg);",
       avatar : "https://www.google.co.in/url?sa=i&url=https%3A%2F%2Fwww.pngmart.com%2Fimage%2F479979&psig=AOvVaw3QAfwbQlPaaqLQeAa46Rmm&ust=1682672849476000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCMCe-f3ayf4CFQAAAAAdAAAAABAE"
+    },
+  keyframes : {
+    carousel : {
+      "0%" : {opacity : "1" , transform : "translateX(0px)"},
+      "100%" : {opacity : "0" , transform : "translateX(100px)"}
     }
+  }
   },
   plugins: [],
 }

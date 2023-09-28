@@ -34,6 +34,7 @@ const initialState: State = {
   chartData: [],
   days: 1,
   logoutMsg: "top-[0px]",
+  showWatchList : false
 };
 
 export const stateValues = createSlice({
@@ -88,6 +89,9 @@ export const stateValues = createSlice({
     logoutmsg: (state, action) => {
       state.logoutMsg = action.payload;
     },
+    showWatchList: (state, action) => {
+      state.showWatchList = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(coinssList.fulfilled, (state, action) => {
@@ -133,4 +137,5 @@ export const {
   removeData,
   period,
   logoutmsg,
+  showWatchList
 } = stateValues.actions;

@@ -31,7 +31,7 @@ export const CoinChart = ({ id }: Props) => {
   }, [currency, days]);
 
   return (
-    <section className="flex p-[30px] flex-col gap-3 mt-10 justify-center md:h-[80%] lg:h-[80%] h-[30%] items-center w-[100%] md:w-[60%] lg:w-[60%] text-offWhite">
+    <section className="flex p-[30px] flex-col gap-3 mt-10 justify-center h-[90%] items-center w-[100%] text-offWhite">
       {!chartData ? (
         <Loading />
       ) : (

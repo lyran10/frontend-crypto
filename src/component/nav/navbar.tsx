@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-// import { LoginAndSignInTabs } from "../auth/loginAndSignInTabs";
-// import { HamburgerButton } from "./hamburgerButton";
-// import { SideNav } from "./sideNav";
-// import { SignInButton } from "../auth/signInButton";
+import { LoginAndSignInTabs } from "../auth/loginAndSignInTabs";
+import { HamburgerButton } from "./hamburgerButton";
+import { SideNav } from "./sideNav";
+import { SignInButton } from "../auth/signInButton";
+import { Logout } from "../auth/logout";
 import { useSelector, TypedUseSelectorHook } from "react-redux/es/exports";
 import { RootState } from "../redux/store";
 import { translateEffects, opacityEffects } from "../redux/reducer";
 import { useDispatch } from "react-redux/es/exports";
 import { AppDispatch } from "../redux/store";
 import { Link } from "react-router-dom";
-// import { Logout } from "../auth/logout";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 
@@ -127,8 +127,8 @@ export const NavBar = () => {
               </span>
             </li>
           ) : null}
-          {/* <li> */}
-            {/* {userLogin ? (
+          <li>
+            {userLogin ? (
               <Logout
                 navBg={navBg}
                 show="hidden"
@@ -139,12 +139,12 @@ export const NavBar = () => {
               <SignInButton
                 ModalIn={ModalIn}
                 navBg={navBg}
-                show="hidden"
+                // show="hidden"
                 trueColor="text-[#191825]"
                 falseColor="text-offWhite"
               />
             )}
-          </li> */}
+          </li>
           {/* <li>
             <HamburgerButton
               translateSideNav={translateSideNav}
@@ -160,14 +160,14 @@ export const NavBar = () => {
           showSideNav={showSideNav}
           translateSideNav={translateSideNav}
         /> */}
-        {/* <LoginAndSignInTabs
+         <LoginAndSignInTabs
           showModal={showModal}
           modalOpacity={modalOpacity}
           modalOut={ModalOut}
-        /> */}
+        /> 
       </div>
 
-      {/* <div
+      <div
         onClick={() => ModalOut()}
         className={`bg-darkBlue h-screen w-[100vw] transition duration-300 top-[100%] bottom-0 left-0 right-0  absolute ${overlayOpacity} ${showOverlay}`}
       ></div>
@@ -175,7 +175,7 @@ export const NavBar = () => {
         className={`bg-lightBlue duration-300 absolute px-2 font-bold rounded-md ${logoutMsg}`}
       >
         Logged out Successfully
-      </div> */}
+      </div>
     </nav>
   );
 };

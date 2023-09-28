@@ -70,10 +70,10 @@ export const AddCoinButton = () => {
         onClick={addCoin}
         className={`flex ${
           checkInList() ? "" : "group"
-        } font-bold self-center w-[100%]  justify-center cursor-pointer items-center gap-2 p-2 px-5 transition duration-500 ${
+        } font-bold self-center w-[100%]  justify-center cursor-pointer items-center gap-2 py-1 px-2 mt-5 transition duration-500 ${
           checkInList()
-            ? "bg-alphaBlue"
-            : "bg-darkBlue hover:bg-alphaBlue hover:text-darkBlue"
+            ? "bg-[#f5f5f5]"
+            : "bg-[#06b6d4] hover:bg-[#f5f5f5] hover:text-darkBlue"
         }   text-offWhite`}
       >
         {loading ? (
@@ -87,10 +87,10 @@ export const AddCoinButton = () => {
         ) : (
           <>
             <span>{checkInList() ? "Already added" : "Add Coin"} </span>
-            <GiTwoCoins
+            {/* <GiTwoCoins
               className="text-offWhite group-hover:text-darkBlue"
               size={20}
-            />
+            /> */}
           </>
         )}
         <div

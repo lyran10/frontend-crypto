@@ -18,7 +18,7 @@ export const DeleteCoinButton = ({ deleteCoin, coinId,selectedCoin }: Props) => 
         onClick={(event) => deleteCoin(event)}
         className="cursor-pointer p-0 mt-1"
       >
-        <TiDelete className={`${selectedCoin === coinId ? "text-darkBlue" : "text-offWhite"}`} size={20} />
+        <TiDelete className={`${selectedCoin === coinId ? "text-darkBlue" : "text-[#06b6d4]"}`} size={20} />
       </button>
     </Tippy>
   );

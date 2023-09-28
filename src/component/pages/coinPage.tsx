@@ -3,8 +3,8 @@ import { NavBar } from "../nav/navbar";
 import { CoinInfo } from "../coin/coinInfo";
 import { useParams } from "react-router-dom";
 import { CoinChart } from "../coin/coinChart";
-// import { WatchList } from "../watchlist/watchList";
-// import { CurrencyDropDown } from "../nav/currencyDropDown";
+import { WatchList } from "../watchlist/watchList";
+import { CurrencyDropDown } from "../nav/currencyDropDown";
 import { RootState, AppDispatch } from "../redux/store";
 import {
   useSelector,
@@ -45,15 +45,14 @@ export const CoinPage = () => {
 
   return (
     <div
-      className={`p-2 bg-darkBlue flex justify-center min-h-[500px] ${
+      className={`p-2 bg-darkBlue flex justify-center ${
         show ? "opacity-1" : "opacity-0"
       } duration-500 w-[100%]`}
     >
       <NavBar />
-      <div className="flex bg-darkBlue w-[100%] justify-center flex-col md:flex-row items-center lg:flex-row">
-        <CoinInfo coinData={singlecoin} />
+      <div className="flex bg-darkBlue w-[100%] justify-center flex-col h-[100vh] items-center">
         <CoinChart id={id} />
-        {/* {userLogin ? (
+        {userLogin ? (
           <WatchList
             height="h-[97vh]"
             sm="hidden"
@@ -61,8 +60,9 @@ export const CoinPage = () => {
             width="w-[20%]"
             mt="mt-[100px]"
           />
-        ) : null} */}
-          {/* <CurrencyDropDown/> */}
+        ) : null}
+          <CurrencyDropDown/>
+          <CoinInfo coinData={singlecoin} />
       </div>
     </div>
   );
