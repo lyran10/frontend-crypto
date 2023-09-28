@@ -79,6 +79,7 @@ export const stateValues = createSlice({
       state.alertMoveUp = action.payload;
     },
     msg: (state, action) => {
+      console.log(action.payload)
       state.alertMsg = action.payload;
     },
     removeData: (state, action) => {
