@@ -9,6 +9,7 @@ import { useSelector, TypedUseSelectorHook } from "react-redux/es/exports";
 import { findUser } from "../redux/actions";
 import { WatchList } from "../watchlist/watchList";
 import { CurrencyDropDown } from "../nav/currencyDropDown";
+import { AlertMsg } from "../utils/alertMsg";
 
 export const HomePage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -49,6 +50,7 @@ export const HomePage = () => {
           />
          ) : null}
          <CurrencyDropDown id={"home"}/>
+         <AlertMsg bg="bg-lightBlue" />
     </div>
   );
 };
