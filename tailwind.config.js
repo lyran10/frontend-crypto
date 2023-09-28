@@ -17,8 +17,8 @@ module.exports = {
       transitionProperty: {
       },
       boxShadow: {
-        "custom": '0px 5px 10px 0px rgba(0, 0, 0, 0.5);',
-        "cards" : "rgba(0, 0, 0, 0.24) 0px 3px 8px;"
+        "custom": '0px 5px 10px 0px rgba(0, 0, 0, 0.5)',
+        "cards" : "rgba(0, 0, 0, 0.24) 0px 3px 8px"
       },
     },
     backgroundImage : {
