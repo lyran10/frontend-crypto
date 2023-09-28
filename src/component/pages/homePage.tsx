@@ -48,7 +48,7 @@ export const HomePage = () => {
             mt="mt-[100px]"
           />
          ) : null}
-         <CurrencyDropDown/>
+         <CurrencyDropDown id={"home"}/>
     </div>
   );
 };

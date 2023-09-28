@@ -61,7 +61,7 @@ export const CoinPage = () => {
             mt="mt-[100px]"
           />
         ) : null}
-          <CurrencyDropDown/>
+          <CurrencyDropDown id="coin"/>
           <CoinInfo coinData={singlecoin} />
       </div>
     </div>
