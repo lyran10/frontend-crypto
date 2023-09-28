@@ -55,7 +55,6 @@ export const findUser = createAsyncThunk(
         withCredentials: true,
       }
     );
-    console.log(msg[0])
     return msg[0];
   }
 

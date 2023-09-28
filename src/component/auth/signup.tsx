@@ -36,7 +36,7 @@ export const Signup = ({show} :Props) => {
       dispatch(loginandSignInalert("-translate-y-[230px]"));
       setTimeout(() => {
         dispatch(loginandSignInalert("-translate-y-[1000px]"));
-      }, 5000);
+      }, 3000);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
