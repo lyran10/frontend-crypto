@@ -32,8 +32,8 @@ export const TableData = () => {
   return (
     <div className="min-h-[500px] w-[100%]">
       <div
-        className={`transtion duration-500 ${
-          show ? "opacity-1" : "opacity-0"
+        className={`transition duration-500 ${
+          show ? "opacity-[1]" : "opacity-0"
         } flex justify-center items-center flex-col gap-5 w-[100%]`}
       >
         <div className="flex justify-center items-center flex-col">
