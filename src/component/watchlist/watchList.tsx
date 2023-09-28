@@ -106,7 +106,7 @@ useEffect(() => {
       </div>
       </Tippy>
       </div>
-      <div className={`${show ? "w-[90vw] h-[450px]  md:w-[400px] lg:w-[400px] opacity-1" : "w-0 h-0 opacity-0 translate-x-[200px]"} duration-500 watchlist overflow-x-hidden`}>
+      <div className={`${show ? "w-[90vw] h-[450px]  md:w-[400px] lg:w-[400px] opacity-[1]" : "w-0 h-0 opacity-0 translate-x-[200px]"} duration-500 watchlist overflow-x-hidden`}>
           <ul className='flex flex-col justify-center w-[100%] py-3 gap-2'>
           {coinslist ? coinslist.map(coin => {
             if(watchlist.includes(coin.id)){  
