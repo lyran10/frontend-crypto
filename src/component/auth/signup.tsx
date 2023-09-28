@@ -30,12 +30,16 @@ export const Signup = ({show} :Props) => {
     const {email,password} = user
     if(!email){
       dispatch(msg("Email reqiured"))
+      setIsLoading(false);
+      return
     }
 
     if(!password){
       dispatch(msg("Email reqiured"))
+      setIsLoading(false);
+      return
     }
-    
+
     e.preventDefault();
     try {
       const { data } = await axios.post(

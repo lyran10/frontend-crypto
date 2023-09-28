@@ -42,10 +42,12 @@ export const Login = ({show} : Props) => {
     const {email,password} = user
     if(!email){
       dispatch(msg("Email reqiured"))
+      return
     }
 
     if(!password){
       dispatch(msg("Email reqiured"))
+      return
     }
 
     e.preventDefault();
