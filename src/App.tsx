@@ -6,7 +6,7 @@ import { CoinPage } from './component/pages/coinPage';
 
 function App() {
   return (
-    <div className="relative">
+    <div className="">
       <Routes>
         <Route path='/' element={<HomePage/>}/>
         <Route path='/coin/:id' element={<CoinPage/>}/>

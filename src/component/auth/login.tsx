@@ -131,7 +131,7 @@ export const Login = ({show} : Props) => {
           </span>
         </button>
       </form>
-      <span className={`text-[#f5f5f5] text-center font-bold ${!show ? "opacity-1 transition-opacity delay-500 duration-500" :"opacity-0"}`}>Access your crypto holdings and embrace financial freedom with our login.</span>
+      <span className={`text-[#f5f5f5] text-center font-bold ${!show ? "opacity-[1] transition-opacity delay-500 duration-500" :"opacity-0"}`}>Access your crypto holdings and embrace financial freedom with our login.</span>
       <AlertMsg bg="bg-lightBlue" />
     </div>
   );
