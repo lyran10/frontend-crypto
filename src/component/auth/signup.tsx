@@ -26,6 +26,16 @@ export const Signup = ({show} :Props) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setIsLoading(true);
+
+    const {email,password} = user
+    if(!email){
+      dispatch(msg("Email reqiured"))
+    }
+
+    if(!password){
+      dispatch(msg("Email reqiured"))
+    }
+    
     e.preventDefault();
     try {
       const { data } = await axios.post(
