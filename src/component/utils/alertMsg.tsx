@@ -4,7 +4,7 @@ import { useSelector, TypedUseSelectorHook } from "react-redux/es/exports";
 import { RootState } from "../redux/store";
 import { useDispatch } from "react-redux/es/exports";
 import { AppDispatch } from "../redux/store";
-import { loginandSignInalert } from "../redux/reducer";
+import { loginandSignInalert, msg } from "../redux/reducer";
 
 type Props = {
   bg: string;
@@ -13,16 +13,21 @@ type Props = {
 export const AlertMsg = ({ bg }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
   const selector: TypedUseSelectorHook<RootState> = useSelector;
-  const alertMsg = selector((state) => state.currencyData.alertMsg);
+  const res = selector((state) => state.currencyData.alertMsg);
   const alertMoveUp = selector((state) => state.currencyData.alertMoveUp);
 
-  // useEffect(() => {}, [alertMsg, alertMoveUp]);
-  // {alertMoveUp}
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(msg(""))
+    }, 700);
+    
+  }, [res]);
+
   return (
     <div
-      className={`transition flex justify-between gap-3 items-center px-2 left-[30%] duration-300 absolute h-[40px] font-bold $ ${bg} -translate-y-[230px] rounded-md`}
+      className={`transition flex justify-between gap-3 items-center px-2 left-[45%] ${res ? "top-[7%]" : "top-[120%]"} duration-300 absolute h-[40px] font-bold $ ${bg} rounded-md`}
     >
-      <span className="">{alertMsg}</span>
+      <span className="">{res}</span>
       <IoCloseSharp
         className="cursor-pointer"
         onClick={() => dispatch(loginandSignInalert("-translate-y-[1000px]"))}
