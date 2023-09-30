@@ -70,23 +70,19 @@ export const AddCoinButton = () => {
         onClick={addCoin}
         className={`flex ${
           checkInList() ? "" : "group"
-        } font-bold self-center w-[100%]  justify-center cursor-pointer items-center gap-2 py-1 px-2 mt-5 transition duration-500 ${
+        } font-bold self-center w-[100%] justify-center cursor-pointer items-center gap-2 py-1 px-2 mt-5 transition duration-500 ${
           checkInList()
-            ? "bg-[#f5f5f5]"
-            : "bg-[#06b6d4] hover:bg-[#f5f5f5] hover:text-darkBlue"
+            ? "bg-[#f5f5f5] text-[#06b6d4]"
+            : "bg- hover:bg-[#f5f5f5] hover:text-darkBlue"
         }   text-offWhite`}
       >
         {loading ? (
           <>
-            <span>processing</span>
-            <span className="relative h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lightBlue opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-lightBlue"></span>
-            </span>
+            <div className="loader w-7 h-7 flex justify-center items-center relative before:content-'' before:absolute before:w-7 before:h-7 before:rounded-full before:bg-[#06b6d4] before:border-[5px] before:border-t-darkBlue before:animate-spin"></div>
           </>
         ) : (
           <>
-            <span>{checkInList() ? "Already added" : "Add Coin"} </span>
+            <span>{checkInList() ? "Added in watch list" : "Add in watch list"} </span>
             {/* <GiTwoCoins
               className="text-offWhite group-hover:text-darkBlue"
               size={20}

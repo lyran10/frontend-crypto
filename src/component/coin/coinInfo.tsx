@@ -97,9 +97,14 @@ export const CoinInfo = ({ coinData }: Props) => {
           )}{" "}
           M
         </span>
-        {userLogin ? (
-        <AddCoinButton />
-      ) : (
+        {userLogin ? 
+            <div className="flex flex-col mt-5 gap-2 w-[100%]">
+          <span className="text-center font-semibold text-[#f5f5f5]">
+            Add {coinData.name} to your watch list
+          </span>
+          <AddCoinButton />
+        </div>
+       : 
         <div className="flex flex-col mt-5 gap-2 w-[100%]">
           <span className="text-center font-semibold text-[#f5f5f5]">
             Login to make your own watchlist
@@ -112,7 +117,7 @@ export const CoinInfo = ({ coinData }: Props) => {
             falseColor="text-[#f5f5f5]"
           />
         </div>
-      )}
+      }
         </div>
        </>
       : null
