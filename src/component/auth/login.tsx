@@ -142,7 +142,7 @@ export const Login = ({show} : Props) => {
           <span className={`flex justify-center items-center`}>
             {isLoading ?
           <div className="loader w-7 h-7 flex justify-center items-center relative before:content-'' before:absolute before:w-7 before:h-7 before:rounded-full before:bg-[#06b6d4] before:border-[5px] before:border-t-darkBlue before:animate-spin"></div>
-              : "LOGIN"}
+              : "Login"}
           </span>
         </button>
       </form>

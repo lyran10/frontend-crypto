@@ -71,7 +71,7 @@ export const Signup = ({show} :Props) => {
         className="w-[100%] flex flex-col justify-center items-center gap-5"
         action=""
       >
-         <div className="flex justify-center items-center w-full relative">
+         <div className="flex justify-center items-center w-full mb-5 relative">
         <FaUserCircle className="text-[#06b6d4] text-[2.5rem] border-b border-[#f5f5f5] mt-[1px] p-1"/>
         <input
           onChange={handleChange}
@@ -83,7 +83,7 @@ export const Signup = ({show} :Props) => {
          <span className={`${error.email ? "translate-y-0 opacity-[1]" : "translate-y-5 opacity-0"} duration-500 text-[14px] font-bold text-[#D2042D] absolute top-[110%] left-0`}>Email reqiured</span>
         </div>
 
-        <div className="flex justify-center items-center w-full relative">
+        <div className="flex justify-center items-center w-full mb-3 relative">
         <RiLockPasswordLine className="text-[#06b6d4] text-[2.5rem] border-b border-[#f5f5f5] mt-[1px]  p-1"/>
         <input
           onChange={handleChange}
@@ -101,7 +101,7 @@ export const Signup = ({show} :Props) => {
           <span className={`flex justify-center items-center`}>
             {isLoading ?
           <div className="loader w-7 h-7 flex justify-center items-center relative before:content-'' before:absolute before:w-7 before:h-7 before:rounded-full before:bg-[#06b6d4] before:border-[5px] before:border-t-darkBlue before:animate-spin"></div>
-              : "LOGIN"}
+              : "Sign up"}
           </span>
         </button>
       </form>
