@@ -20,9 +20,9 @@ export const AlertMsg = ({ bg }: Props) => {
   useEffect(() => {
     if(res){
       
-      // setTimeout(() => {
+      setTimeout(() => {
         setOpacity(true)
-      // }, 500);
+      }, 500);
 
       setTimeout(() => {
         setOpacity(false)
@@ -30,7 +30,7 @@ export const AlertMsg = ({ bg }: Props) => {
 
       setTimeout(() => {
         dispatch(msg(""))
-        setOpacity(false)
+        // setOpacity(false)
       }, 3000);
     }
  
