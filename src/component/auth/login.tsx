@@ -26,6 +26,7 @@ export const Login = ({show} : Props) => {
   const selector: TypedUseSelectorHook<RootState> = useSelector;
   const translate = selector((state) => state.currencyData.translate);
   const Opacity = selector((state) => state.currencyData.opacity);
+   const [scale, setScale] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error,setError] = useState<{email :boolean,password : boolean}>({email :false,password : false})
   const [user, setUser] = useState<User>({
@@ -135,18 +136,13 @@ export const Login = ({show} : Props) => {
           <span className={`${error.password ? "translate-y-0 opacity-[1]" : "translate-y-5 opacity-0"} duration-500 text-[14px] font-bold text-[#D2042D] absolute top-[110%] left-0`}>Password reqiured</span>
         </div>
 
-        <button
-          type="submit"
-          className="mt-5 p-2 w-[100%] px-5 bg-[#06b6d4] text-[#f5f5f5]  font-bold transition duration-500 hover:-translate-y-2"
+        <button onMouseDown={() => setScale(true)} onMouseUp={() => setScale(false)} type="submit"
+        className={`mt-5 flex justify-center items-center p-2 w-[100%] px-5 bg-[#06b6d4] text-[#f5f5f5] rounded-md font-bold transition duration-500 ${scale ? "scale-[0.9]" : "scale-100"}`}
         >
-          {isLoading ? (
-            <span className="relative h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lightBlue opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-lightBlue"></span>
-            </span>
-          ) : null}
-          <span className={`${isLoading ? "ms-2" : ""} `}>
-            {isLoading ? "PROCESSING..." : "LOGIN"}
+          <span className={`flex justify-center items-center`}>
+            {isLoading ?
+          <div className="loader w-7 h-7 flex justify-center items-center relative before:content-'' before:absolute before:w-7 before:h-7 before:rounded-full before:bg-[#06b6d4] before:border-[5px] before:border-t-darkBlue before:animate-spin"></div>
+              : "LOGIN"}
           </span>
         </button>
       </form>
