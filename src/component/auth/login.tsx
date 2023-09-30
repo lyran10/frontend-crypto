@@ -27,6 +27,7 @@ export const Login = ({show} : Props) => {
   const translate = selector((state) => state.currencyData.translate);
   const Opacity = selector((state) => state.currencyData.opacity);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error,setError] = useState<{email :boolean,password : boolean}>({email :false,password : false})
   const [user, setUser] = useState<User>({
     email: "",
     password: "",
@@ -42,12 +43,16 @@ export const Login = ({show} : Props) => {
 
     const {email,password} = user
     if(!email){
-      dispatch(msg("Email reqiured"))
+      // dispatch(msg("Email reqiured"))
+      setError({email : true,password : false})
+      setIsLoading(false);
       return
     }
 
     if(!password){
-      dispatch(msg("Password reqiured"))
+      // dispatch(msg("Password reqiured"))
+      setError({email : false,password : true})
+      setIsLoading(false);
       return
     }
 
@@ -60,11 +65,11 @@ export const Login = ({show} : Props) => {
       dispatch(msg(data.msg));
       localStorage.setItem("id", data.user._id);
       localStorage.setItem("token", data.user.token);
-      dispatch(loginandSignInalert("-translate-y-[230px]"));
+      // dispatch(loginandSignInalert("-translate-y-[230px]"));
       dispatch(userLogin(data.status));
-      setTimeout(() => {
-        dispatch(loginandSignInalert("-translate-y-[1000px]"));
-      }, 3000);
+      // setTimeout(() => {
+      //   dispatch(loginandSignInalert("-translate-y-[1000px]"));
+      // }, 3000);
       dispatch(
         details({
           _id: data.user._id,
@@ -106,7 +111,7 @@ export const Login = ({show} : Props) => {
         className="w-[100%] flex flex-col justify-center items-center gap-5"
         action=""
       >
-        <div className="flex justify-center items-center w-full">
+        <div className="flex justify-center items-center w-full mb-5 relative">
         <FaUserCircle className="text-[#06b6d4] text-[2.5rem] border-b border-[#f5f5f5] mt-[1px] p-1"/>
         <input
           onChange={handleChange}
@@ -115,9 +120,10 @@ export const Login = ({show} : Props) => {
           placeholder="Email"
           name="email"
         />
+        <span className={`${error.email ? "translate-y-0 opacity-[1]" : "translate-y-5 opacity-0"} duration-500 text-[14px] font-bold text-[#D2042D] absolute top-[110%] left-0`}>Email reqiured</span>
         </div>
 
-        <div className="flex justify-center items-center w-full">
+        <div className="flex justify-center items-center w-full mb-3 relative">
         <RiLockPasswordLine className="text-[#06b6d4] text-[2.5rem] border-b border-[#f5f5f5] mt-[1px] p-1"/>
         <input
           onChange={handleChange}
@@ -126,6 +132,7 @@ export const Login = ({show} : Props) => {
           placeholder="Password"
           name="password"
         />
+          <span className={`${error.password ? "translate-y-0 opacity-[1]" : "translate-y-5 opacity-0"} duration-500 text-[14px] font-bold text-[#D2042D] absolute top-[110%] left-0`}>Password reqiured</span>
         </div>
 
         <button

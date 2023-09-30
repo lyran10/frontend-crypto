@@ -15,6 +15,7 @@ type Props = {
 export const Signup = ({show} :Props) => {
   const dispatch = useDispatch<AppDispatch>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error,setError] = useState<{email :boolean,password : boolean}>({email :false,password : false})
   const [user, setUser] = useState<User>({
     email: "",
     password: "",
@@ -30,13 +31,15 @@ export const Signup = ({show} :Props) => {
 
     const {email,password} = user
     if(!email){
-      dispatch(msg("Email reqiured"))
+      // dispatch(msg("Email reqiured"))
+      setError({email : true,password : false})
       setIsLoading(false);
       return
     }
 
     if(!password){
-      dispatch(msg("Password reqiured"))
+      // dispatch(msg("Password reqiured"))
+      setError({email : false,password : true})
       setIsLoading(false);
       return
     }
@@ -76,6 +79,7 @@ export const Signup = ({show} :Props) => {
           placeholder="Email"
           name="email"
         />
+         <span className={`${error.email ? "translate-y-0 opacity-[1]" : "translate-y-5 opacity-0"} duration-500 text-[14px] font-bold text-[#D2042D] absolute top-[110%] left-0`}>Email reqiured</span>
         </div>
 
         <div className="flex justify-center items-center w-full">
@@ -87,6 +91,7 @@ export const Signup = ({show} :Props) => {
           placeholder="Password"
           name="password"
         />
+         <span className={`${error.password ? "translate-y-0 opacity-[1]" : "translate-y-5 opacity-0"} duration-500 text-[14px] font-bold text-[#D2042D] absolute top-[110%] left-0`}>Password reqiured</span>
         </div>
 
         <button
