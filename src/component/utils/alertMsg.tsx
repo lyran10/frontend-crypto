@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { useSelector, TypedUseSelectorHook } from "react-redux/es/exports";
 import { RootState } from "../redux/store";
@@ -11,21 +11,31 @@ type Props = {
 };
 
 export const AlertMsg = ({ bg }: Props) => {
+  const [opacity,setOpacity] = useState<boolean>(false)
   const dispatch = useDispatch<AppDispatch>();
   const selector: TypedUseSelectorHook<RootState> = useSelector;
   const res = selector((state) => state.currencyData.alertMsg);
   const alertMoveUp = selector((state) => state.currencyData.alertMoveUp);
 
   useEffect(() => {
-    setTimeout(() => {
-      dispatch(msg(""))
-    }, 700);
+    if(res){
+      
+      setTimeout(() => {
+        setOpacity(true)
+      }, 500);
+
+      setTimeout(() => {
+        dispatch(msg(""))
+        setOpacity(false)
+      }, 1000);
+    }
+ 
     
   }, [res]);
 
   return (
     <div
-      className={`transition flex justify-between gap-3 items-center px-2 left-[45%] ${res ? "top-[7%]" : "top-[120%]"} duration-300 absolute h-[40px] font-bold $ ${bg} rounded-md`}
+      className={`transition flex justify-between gap-3 items-center px-2 left-[45%]   ${res ? "top-[7%]" : "top-[120%]"} duration-300 absolute h-[40px] font-bold $ ${bg} rounded-md`}
     >
       <span className="">{res}</span>
       <IoCloseSharp
