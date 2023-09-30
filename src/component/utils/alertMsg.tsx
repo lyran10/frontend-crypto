@@ -20,14 +20,18 @@ export const AlertMsg = ({ bg }: Props) => {
   useEffect(() => {
     if(res){
       
-      setTimeout(() => {
+      // setTimeout(() => {
         setOpacity(true)
-      }, 500);
+      // }, 500);
+
+      setTimeout(() => {
+        setOpacity(false)
+      }, 2000);
 
       setTimeout(() => {
         dispatch(msg(""))
         setOpacity(false)
-      }, 1000);
+      }, 3000);
     }
  
     
