@@ -35,7 +35,7 @@ export const AlertMsg = ({ bg }: Props) => {
 
   return (
     <div
-      className={`transition flex z-[3000] justify-between gap-3 items-center px-2 left-[45%]  ${res ? "-translate-y-[800px]" : "-translate-y-[1000px]"} duration-300 absolute h-[40px] font-bold $ ${bg} rounded-md`}
+      className={`transition flex z-[3000] justify-between gap-3 items-center px-2 left-[45%] ${opacity ? "opacity-[1]" : "opacity-0"} ${res ? "-translate-y-[800px]" : "-translate-y-[1000px]"} duration-500 absolute h-[40px] font-bold $ ${bg} rounded-md`}
     >
       <span className="">{res}</span>
       <IoCloseSharp
