@@ -77,7 +77,7 @@ export const AddCoinButton = () => {
       >
         {loading ? (
           <>
-            <div className="loader w-7 h-7 flex justify-center items-center relative before:content-'' before:absolute before:w-7 before:h-7 before:rounded-full before:bg-darkBlue before:border-[5px] before:border-t-darkBlue before:animate-spin"></div>
+            <div className="loader w-7 h-7 flex justify-center items-center relative before:content-'' before:absolute before:w-7 before:h-7 before:rounded-full before:bg-[rgba(0,0,0,0)] before:border-[5px] before:border-t-darkBlue before:animate-spin"></div>
           </>
         ) : (
           <>
