@@ -98,7 +98,7 @@ export const CoinInfo = ({ coinData }: Props) => {
           M
         </span>
         {userLogin ? 
-            <div className="flex flex-col mt-5 gap-2 w-[100%]">
+            <div className="flex flex-col mt-5 w-[100%]">
           <span className="text-center font-semibold text-[#f5f5f5]">
             Add {coinData.name} to your watch list
           </span>
