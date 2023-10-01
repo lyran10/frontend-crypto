@@ -33,6 +33,7 @@ export const CoinInfo = ({ coinData }: Props) => {
   const symbol = selector((state) => state.currencyData.symbol);
   const currency = selector((state) => state.currencyData.currency).toLowerCase();
   const userLogin = selector((state) => state.currencyData.login);
+  const watchlist = selector((state) => state.currencyData.watchlist);
 
   const ModalIn = () => {
     let translateObj = {
@@ -59,6 +60,12 @@ export const CoinInfo = ({ coinData }: Props) => {
       setArrow({arrow1 : "-translate-y-2",arrow2 : "w-8",arrow3 : "translate-y-2 "})
     }
   }
+
+  const checkInList = () => {
+    if (id && watchlist.length !== 0) {
+      return watchlist.find((ele: string) => ele === id);
+    }
+  };
 
   useEffect(() => {}, [symbol, currency, translate, Opacity, coinData]);
 
@@ -98,10 +105,15 @@ export const CoinInfo = ({ coinData }: Props) => {
           M
         </span>
         {userLogin ? 
-            <div className="flex flex-col mt-5 w-[100%]">
-          <span className="text-center font-semibold text-[#f5f5f5]">
-            Add {coinData.name} to your watch list
-          </span>
+            <div className="flex flex-col mt-5 gap-2 w-[100%]">
+              {checkInList() ?
+                  <span className="text-center font-semibold text-[#f5f5f5]">
+                  Add {coinData.name} to your watch list
+                </span>
+               :
+               null
+               }
+      
           <AddCoinButton />
         </div>
        : 
