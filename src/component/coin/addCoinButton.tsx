@@ -71,8 +71,8 @@ export const AddCoinButton = () => {
           checkInList() ? "" : "group"
         } font-bold self-center w-[100%] justify-center rounded-md items-center gap-2 py-1 px-2 transition duration-500 ${
           checkInList()
-            ? "bg-[#f5f5f5] text-darkBlue"
-            : "bg-[#06b6d4] hover:bg-alphaBlue hover:text-[#f5f5f5] cursor-pointer mt-10"
+            ? "bg-[#f5f5f5] text-darkBlue mt-[50px]"
+            : "bg-[#06b6d4] hover:bg-alphaBlue hover:text-[#f5f5f5] cursor-pointer"
         }   text-[#f5f5f5]`}
       >
         {loading ? (
