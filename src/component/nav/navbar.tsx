@@ -12,6 +12,7 @@ import { AppDispatch } from "../redux/store";
 import { Link } from "react-router-dom";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
+import axios from "axios";
 
 export const NavBar = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -80,13 +81,21 @@ export const NavBar = () => {
 
   // const convertFile = async (file: any) => {};
 
-  const handleClick = (e: any) => {
-    e.preventDefault();
-  };
+  // const handleClick = (e: any) => {
+  //   e.preventDefault();
+  // };
 
-  const handleFileUpload = async (e: any) => {
-    const file = e.target.files[0];
-  };
+  // const handleFileUpload = async (e: any) => {
+  //   const file = e.target.files[0];
+  //   console.log(file)
+  //   const config = {
+  //     headers: {
+  //       'Accept': 'image/jpeg, image/jpg, image/png',
+  //     },
+  //   };
+  //   const {data} = await axios.post("http://localhost:4000/uploads",{image : file},config)
+  //   console.log(data)
+  // };
 
   return (
     <nav
@@ -100,9 +109,9 @@ export const NavBar = () => {
         </Link>
         <ul className="flex">
           {userDetails._id !== "" && userLogin === true ? (
-            <li className="hidden md:flex lg:flex me-[20px] justify-center items-center gap-2">
-              <Tippy content="Upload Photo">
-                <form action="" onSubmit={handleClick}>
+            <li className="flex me-[20px] justify-center items-center gap-2">
+              {/* <Tippy content="Upload Photo">
+                <form method="POST" action="http://localhost:4000/uploads">
                   <label htmlFor="uploadFile">
                     <img
                       className="inline-block h-12 w-12 rounded-full cursor-pointer ring-2 ring-white"
@@ -110,13 +119,11 @@ export const NavBar = () => {
                       alt="image"
                     />
                   </label>
-                </form>
-              </Tippy>
-              <input
+                  <input
                 className="hidden"
                 onChange={(e) => handleFileUpload(e)}
                 type="file"
-                name="myFile"
+                name="image"
                 id="uploadFile"
                 accept=".jpeg, .jpg, .png"
               />
@@ -125,8 +132,16 @@ export const NavBar = () => {
               >
                 {userDetails.email}
               </span>
+              <input type="submit"/>
+                </form>
+              </Tippy> */}
+             <span
+                className={` ${navBg ? "text-[#191825]" : "text-offWhite"}`}
+              >
+                {userDetails.email}
+              </span>
             </li>
-          ) : null}
+           ) : null}
           <li>
             {userLogin ? (
               <Logout
