@@ -14,15 +14,21 @@ import {Button} from "../watchlist/watchListButton"
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
+import { useParams } from "react-router-dom";
 
 type Props = {
   coinData: any;
+};
+
+type Params = {
+  id: string | undefined;
 };
 
 export const CoinInfo = ({ coinData }: Props) => {
   const selector: TypedUseSelectorHook<RootState> = useSelector;
   const dispatch = useDispatch<AppDispatch>();
   const [show,setShow] = useState<boolean>(false)
+  const { id } = useParams<Params>();
   const [arrow,setArrow] = useState<{arrow1 : string, arrow2 : string,arrow3 : string}>({
     arrow1 : "-translate-y-2",
     arrow2 : "w-8",

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
-import { GiTwoCoins } from "react-icons/gi";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useSelector, TypedUseSelectorHook } from "react-redux/es/exports";
@@ -72,7 +71,7 @@ export const AddCoinButton = () => {
           checkInList() ? "" : "group"
         } font-bold self-center w-[100%] justify-center rounded-md items-center gap-2 py-1 px-2 transition duration-500 ${
           checkInList()
-            ? "bg-[#f5f5f5] text-darkBlue"
+            ? "bg-[#f5f5f5] text-darkBlue mt-5"
             : "bg-[#06b6d4] hover:bg-alphaBlue hover:text-[#f5f5f5] cursor-pointer"
         }   text-[#f5f5f5]`}
       >
