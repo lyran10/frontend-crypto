@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { User } from "../utils/interface";
 import axios from "axios";
-import { AlertMsg } from "../utils/alertMsg";
 import { useDispatch } from "react-redux/es/exports";
 import { AppDispatch } from "../redux/store";
 import {
@@ -9,7 +8,6 @@ import {
   translateEffects,
   opacityEffects,
   details,
-  loginandSignInalert,
   msg,
 } from "../redux/reducer";
 import { useSelector, TypedUseSelectorHook } from "react-redux/es/exports";
@@ -147,7 +145,6 @@ export const Login = ({show} : Props) => {
         </button>
       </form>
       <span className={`text-[#f5f5f5] text-center font-bold ${!show ? "opacity-[1] transition-opacity delay-500 duration-500" :"opacity-0"}`}>Access your crypto holdings and embrace financial freedom with our login.</span>
-      {/* <AlertMsg bg="bg-lightBlue" /> */}
     </div>
   );
 };

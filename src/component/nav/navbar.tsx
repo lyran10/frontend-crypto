@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { LoginAndSignInTabs } from "../auth/loginAndSignInTabs";
-import { HamburgerButton } from "./hamburgerButton";
-import { SideNav } from "./sideNav";
 import { SignInButton } from "../auth/signInButton";
 import { Logout } from "../auth/logout";
 import { useSelector, TypedUseSelectorHook } from "react-redux/es/exports";
@@ -10,9 +8,7 @@ import { translateEffects, opacityEffects } from "../redux/reducer";
 import { useDispatch } from "react-redux/es/exports";
 import { AppDispatch } from "../redux/store";
 import { Link } from "react-router-dom";
-import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
-import axios from "axios";
 
 export const NavBar = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -24,13 +20,7 @@ export const NavBar = () => {
   const logoutMsg = selector((state) => state.currencyData.logoutMsg);
   const { showModal, showOverlay } = translate;
   const { overlayOpacity, modalOpacity } = Opacity;
-  const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const [navBg, setnavBg] = useState<boolean>(false);
-  const [arrow, setArrow] = useState<string>("rotate-[0deg]");
-  const [showSideNav, setShowSideNav] = useState<string>("opacity-0");
-  const [translateSideNav, setTranslateSideNav] = useState<string>(
-    "translate-x-[1800px]"
-  );
 
   useEffect(() => {}, [translate, Opacity, userDetails, userLogin, logoutMsg]);
 
@@ -160,21 +150,7 @@ export const NavBar = () => {
               />
             )}
           </li>
-          {/* <li>
-            <HamburgerButton
-              translateSideNav={translateSideNav}
-              setTranslateSideNav={setTranslateSideNav}
-              setShowSideNav={setShowSideNav}
-              showSideNav={showSideNav}
-            />
-          </li> */}
         </ul>
-        {/* <SideNav
-          ModalIn={ModalIn}
-          navBg={navBg}
-          showSideNav={showSideNav}
-          translateSideNav={translateSideNav}
-        /> */}
          <LoginAndSignInTabs
           showModal={showModal}
           modalOpacity={modalOpacity}

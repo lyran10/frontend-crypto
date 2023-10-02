@@ -8,7 +8,6 @@ import {
 import { AppDispatch, RootState } from "../redux/store";
 import { SignInButton } from "../auth/signInButton";
 import { translateEffects, opacityEffects } from "../redux/reducer";
-import parse from "html-react-parser";
 import { AddCoinButton } from "./addCoinButton";
 import {Button} from "../watchlist/watchListButton"
 import Tippy from "@tippyjs/react";

@@ -82,10 +82,6 @@ export const AddCoinButton = () => {
         ) : (
           <>
             <span>{checkInList() ? "Added in watch list" : "Add in watch list"} </span>
-            {/* <GiTwoCoins
-              className="text-offWhite group-hover:text-darkBlue"
-              size={20}
-            /> */}
           </>
         )}
         <div

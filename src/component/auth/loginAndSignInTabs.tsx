@@ -44,13 +44,6 @@ export const LoginAndSignInTabs = ({
             SIGNUP
           </button>
         </li>
-        {/* <li>
-          <IoCloseSharp
-            className="absolute right-0 hover:bg-offWhite hover:text-[#0B2447] transition duration-500 text-[#f5f5f5] rounded-md top-0 cursor-pointer"
-            onClick={modalOut}
-            size={25}
-          />
-        </li> */}
       </ul>
        <Login show={show}/>
        <Signup show={show}/>
