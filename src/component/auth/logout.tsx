@@ -51,7 +51,7 @@ export const Logout = ({ navBg, trueColor, falseColor, show }: Props) => {
   return (
     <button
       onClick={logOut}
-      className={`${show} md:flex lg:flex h-[100%] font-bold justify-center cursor-pointer items-center gap-2 p-2 px-5 transition duration-500 hover:bg-alphaBlue ${
+      className={`${show} md:flex lg:flex h-[100%] font-bold justify-center cursor-pointer items-center gap-1 md:gap-2 lg:gap-2 p-2 px-5 transition duration-500 hover:bg-alphaBlue ${
         navBg ? trueColor : falseColor
       }`}
     >
