@@ -4,6 +4,11 @@ import axios from "axios";
 import { useDispatch } from "react-redux/es/exports";
 import { AppDispatch } from "../redux/store";
 import {
+  useSelector,
+  TypedUseSelectorHook,
+} from "react-redux/es/exports";
+import { RootState } from "../redux/store";
+import {
   details,
   userLogin,
   clearwatchlist,
@@ -19,6 +24,8 @@ type Props = {
 
 export const Logout = ({ navBg, trueColor, falseColor, show }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
+  const selector: TypedUseSelectorHook<RootState> = useSelector;
+  const login = selector((state) => state.currencyData.login);
 
   const logOut = async () => {
     try {
@@ -48,7 +55,7 @@ export const Logout = ({ navBg, trueColor, falseColor, show }: Props) => {
         navBg ? trueColor : falseColor
       }`}
     >
-      <span>Logout</span>
+      {!login ? <span>Logout</span> :null}
       <FiLogOut size={20} />
     </button>
   );

@@ -76,7 +76,7 @@ export const CoinInfo = ({ coinData }: Props) => {
   useEffect(() => {}, [symbol, currency, translate, Opacity, coinData]);
 
   return (
-    <div className={`fixed left-0 bottom-3 flex justify-center items-end gap-1 z-[5000]`}>
+    <div className={`fixed left-0 bottom-3 flex justify-center items-end gap-1`}>
     <div className={`flex flex-col gap-3 item-center duration-700 bg-[rgba(0,0,0,0.6)] ${show? "w-[200px] h-[420px] opacity-1 translate-x-0" : " -translate-x-[200px] delay-300 transition-translate h-0 w-0 opacity-0"}  text-[#f5f5f5] py-3 px-2 rounded-br-md rounded-tr-md`}>
       {Object.keys(coinData).length !== 0 ? 
       <>
