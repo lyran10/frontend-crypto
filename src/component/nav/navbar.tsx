@@ -146,7 +146,7 @@ export const NavBar = () => {
             {userLogin ? (
               <Logout
                 navBg={navBg}
-                show="hidden"
+                show="flex"
                 trueColor="text-[#191825]"
                 falseColor="text-offWhite"
               />
