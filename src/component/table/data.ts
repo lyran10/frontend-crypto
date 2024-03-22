@@ -1,5 +1,4 @@
-export {}
-
+// data for development
 export const data = [
   {
       "id": "bitcoin",

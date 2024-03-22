@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { stateValues } from "./reducer";
+import { values } from "./reducer";
 
 export const store = configureStore({
   reducer: {
-    currencyData: stateValues.reducer,
+    data: values.reducer
   },
 });
 

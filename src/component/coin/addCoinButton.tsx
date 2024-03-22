@@ -1,59 +1,35 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useRedux } from "../../customHooks/useRedux";
+import { useStorage } from "../../customHooks/UseStorage";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import { useParams } from "react-router-dom";
-import axios from "axios";
-import { useSelector, TypedUseSelectorHook } from "react-redux/es/exports";
-import { RootState } from "../redux/store";
-import { useDispatch } from "react-redux/es/exports";
-import { AppDispatch } from "../redux/store";
-import { getwatchList } from "../redux/actions";
-import { userLogin } from "../redux/reducer";
-import { IoCloseSharp } from "react-icons/io5";
+import { addCoin, getwatchList } from "../redux/actions";
 
 type Params = {
   id: string | undefined;
 };
 
 export const AddCoinButton = () => {
-  const [alertMsg, setAlertMsg] = useState<string>("");
-  const [moveUp, setMoveUp] = useState<string>("-translate-y-[1000px]");
-  const dispatch = useDispatch<AppDispatch>();
-  const [loading, setLoading] = useState<boolean>(false);
   const { id } = useParams<Params>();
-  const selector: TypedUseSelectorHook<RootState> = useSelector;
-  const watchlist = selector((state) => state.currencyData.watchlist);
-  const userDetails = selector((state) => state.currencyData.userDetails);
+  const [methods] = useRedux()
+  const [storage] = useStorage()
+  const [loading, setLoading] = useState<boolean>(false);
+  const watchlist = methods.selector((state) => state.data.watchlist);
+  const message = methods.selector((state) => state.data.alertMsg);
 
-  useEffect(() => {}, [watchlist, userDetails]);
-
-  const addCoin = async () => {
-    setLoading(true);
-    try {
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/api/addcoin`,
-        { id: userDetails._id, coin: id },
-        {
-          headers: { Authorization: `Bearer ${userDetails.token}` },
-          withCredentials: true,
-        }
-      );
-      await dispatch(getwatchList(userDetails));
-      setAlertMsg(data.msg);
-      setMoveUp("-translate-y-[400px]");
-      setTimeout(() => {
-        setMoveUp("-translate-y-[1000px]");
-      }, 3000);
+  useEffect(() => {
+    if (message) {
+      methods.dispatch(getwatchList(storage.getValues().id));
       setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setMoveUp("-translate-y-[400px]");
-      setTimeout(() => {
-        setMoveUp("-translate-y-[1000px]");
-      }, 3000);
-      setLoading(false);
-      dispatch(userLogin(false));
     }
+  }, [message])
+
+  useEffect(() => { }, [watchlist, storage.getValues().id]);
+
+  const add = () => {
+    setLoading(true);
+    methods.dispatch(addCoin({ id: storage.getValues().id, coin: id }))
   };
 
   const checkInList = () => {
@@ -66,14 +42,12 @@ export const AddCoinButton = () => {
     <Tippy content="Add coin to your Watchlist" placement="bottom">
       <button
         disabled={checkInList() ? true : false}
-        onClick={addCoin}
-        className={`flex ${
-          checkInList() ? "" : "group"
-        } font-bold self-center w-[100%] justify-center rounded-md items-center gap-2 py-1 px-2 transition duration-500 ${
-          checkInList()
+        onClick={add}
+        className={`flex ${checkInList() ? "" : "group"
+          } font-bold self-center w-[100%] justify-center rounded-md items-center gap-2 py-1 px-2 transition duration-500 ${checkInList()
             ? "bg-[#f5f5f5] text-darkBlue mt-[51px]"
             : "bg-[#06b6d4] hover:bg-alphaBlue hover:text-[#f5f5f5] cursor-pointer"
-        }   text-[#f5f5f5]`}
+          }   text-[#f5f5f5]`}
       >
         {loading ? (
           <>
@@ -84,16 +58,6 @@ export const AddCoinButton = () => {
             <span>{checkInList() ? "Added in watch list" : "Add in watch list"} </span>
           </>
         )}
-        <div
-          className={`transition flex justify-between gap-3 items-center px-2 duration-300 absolute h-[40px] font-bold ${moveUp} bg-darkBlue rounded-md`}
-        >
-          <span className="">{alertMsg}</span>
-          <IoCloseSharp
-            className="cursor-pointer"
-            onClick={() => setMoveUp("-translate-y-[1000px]")}
-            size={25}
-          />
-        </div>
       </button>
     </Tippy>
   );

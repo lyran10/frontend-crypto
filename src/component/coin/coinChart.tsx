@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import { CategoryScale } from "chart.js";
 import Chart from "chart.js/auto";
-import {
-  useDispatch,
-  useSelector,
-  TypedUseSelectorHook,
-} from "react-redux/es/exports";
 import { Loading } from "../utils/loading";
 import { chartDays } from "./data";
 import { SelectButton } from "./selectedButton";
-import { AppDispatch, RootState } from "../redux/store";
 import { historicalChart } from "../redux/actions";
 import { period } from "../redux/reducer";
+import { useRedux } from "../../customHooks/useRedux";
 Chart.register(CategoryScale);
 
 type Props = {
@@ -20,14 +15,13 @@ type Props = {
 };
 
 export const CoinChart = ({ id }: Props) => {
-  const selector: TypedUseSelectorHook<RootState> = useSelector;
-  const dispatch = useDispatch<AppDispatch>();
-  const currency = selector((state) => state.currencyData.currency);
-  const chartData = selector((state) => state.currencyData.chartData);
+  const [methods] = useRedux()
   const [days, setdays] = useState(1);
+  const currency = methods.selector((state) => state.data.currency);
+  const chartData = methods.selector((state) => state.data.chartData);
 
   useEffect(() => {
-    dispatch(historicalChart({ currency, days, id }));
+    methods.dispatch(historicalChart({ currency, days, id }));
   }, [currency, days]);
 
   return (
@@ -71,7 +65,7 @@ export const CoinChart = ({ id }: Props) => {
             <SelectButton
               key={index}
               onClick={() => {
-                dispatch(period(data.value));
+                methods.dispatch(period(data.value));
                 setdays(data.value);
               }}
               selected={data.value === days}

@@ -1,47 +1,58 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { State } from "../utils/interface";
 import {
-  coinssList,
+  coinsList,
   getwatchList,
   findUser,
   singleCoin,
   historicalChart,
+  logout,
+  login,
+  signIn,
+  addCoin,
+  deleteCoin,
 } from "./actions";
 
 const initialState: State = {
+  status: false,
+  login: false,
+  signIn: false,
+  credentials: { id: "", email: "" },
+  alertMsg: "",
+  dataMsg: "",
   currency: "USD",
   symbol: "$",
   inputSearch: "",
   coinsList: [],
   paginationList: [],
   filteredList: [],
-  translate: {
-    showModal: "-translate-y-[800px]",
-    showOverlay: "translate-x-[1700px]",
-  },
-  // opacity-0
-  opacity: {
-    modalOpacity: "opacity-0",
-    overlayOpacity: "opacity-0",
-  },
-  login: false,
-  userDetails: { _id: "", email: "", token: "" },
+  modal: false,
   watchlist: [],
-  alertMoveUp: "-translate-y-[1000px]",
-  alertMsg: "",
-  tokenExpiredMsg: "Token has expired. Please login again.",
-  tokenExpiredMsgMoveUp: "translate-y-[500px]",
-  singlecoin: [],
+  singlecoin: {},
   chartData: [],
   days: 1,
-  logoutMsg: "top-[0px]",
-  showWatchList : false
+  showWatchList: false,
+  coinInfoButton: false
 };
 
-export const stateValues = createSlice({
+export const values = createSlice({
   name: "State",
   initialState,
   reducers: {
+    // ---------------- Authentication ----------------
+    userLogin: (state, action) => {
+      state.login = action.payload;
+    },
+    autMsg: (state, action) => {
+      state.alertMsg = action.payload;
+    },
+    getStatus: (state, action) => {
+      state.status = action.payload
+    },
+    // ---------------- Data ----------------
+    removeCredentials: (state, action) => {
+      state.credentials = action.payload;
+    },
     currencyChange: (state, action) => {
       state.currency = action.payload;
     },
@@ -56,31 +67,11 @@ export const stateValues = createSlice({
           coin.symbol.toLowerCase().includes(action.payload.toLowerCase())
       );
     },
-    translateEffects: (state, action) => {
-      const { showModal, overlay } = action.payload;
-      state.translate.showModal = showModal;
-      state.translate.showOverlay = overlay;
-    },
-    opacityEffects: (state, action) => {
-      const { modalOpacity, overlayOpacity } = action.payload;
-      state.opacity.modalOpacity = modalOpacity;
-      state.opacity.overlayOpacity = overlayOpacity;
-    },
-    userLogin: (state, action) => {
-      state.login = action.payload;
-    },
-    details: (state, action) => {
-      state.userDetails = action.payload;
+    getModal: (state, action) => {
+      state.modal = action.payload;
     },
     clearwatchlist: (state, action) => {
       state.watchlist = action.payload;
-    },
-    loginandSignInalert: (state, action) => {
-      state.alertMoveUp = action.payload;
-    },
-    msg: (state, action) => {
-      console.log(action.payload)
-      state.alertMsg = action.payload;
     },
     removeData: (state, action) => {
       state.singlecoin = action.payload;
@@ -88,31 +79,63 @@ export const stateValues = createSlice({
     period: (state, action) => {
       state.days = action.payload;
     },
-    logoutmsg: (state, action) => {
-      state.logoutMsg = action.payload;
+    showCoinInfo: (state, action) => {
+      state.coinInfoButton = action.payload;
     },
     showWatchList: (state, action) => {
       state.showWatchList = action.payload;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(coinssList.fulfilled, (state, action) => {
-      state.coinsList = action.payload;
-      state.paginationList = action.payload;
+    // ---------- Authentication ------------------
+    builder.addCase(findUser.fulfilled, (state, action) => {
+      state.login = action.payload.status
+    });
+
+    builder.addCase(logout.fulfilled, (state, action) => {
+      state.alertMsg = action.payload.msg;
+      state.login = action.payload.status;
+      state.status = action.payload.status
+    });
+
+    builder.addCase(login.fulfilled, (state, action) => {
+      state.alertMsg = action.payload.msg;
+      state.login = action.payload.status;
+      state.status = action.payload.status
+      if (action.payload.user) state.credentials = { id: action.payload.user._id, email: action.payload.user.email }
+    });
+
+    builder.addCase(signIn.fulfilled, (state, action) => {
+      state.alertMsg = action.payload.msg;
+      state.signIn = action.payload.status;
+      state.status = action.payload.status
+    });
+
+    // ----------------- Auth Rejection ---------------------
+
+    builder.addCase(findUser.rejected, (state, action: any) => {
+      const { msg, status } = action.payload
+      state.alertMsg = msg
+      state.login = status
+      state.status = status
+    });
+
+    // ----------------  Data --------------------
+    builder.addCase(addCoin.fulfilled, (state, action) => {
+      state.alertMsg = action.payload;
+    });
+
+    builder.addCase(deleteCoin.fulfilled, (state, action) => {
+      state.alertMsg = action.payload;
     });
 
     builder.addCase(getwatchList.fulfilled, (state, action) => {
       state.watchlist = action.payload;
     });
 
-    builder.addCase(findUser.fulfilled, (state, action) => {
-      state.userDetails = action.payload;
-      state.login = true;
-    });
-
-    builder.addCase(findUser.rejected, (state, action) => {
-      state.tokenExpiredMsgMoveUp = "-translate-y-[230px]";
-      state.login = false;
+    builder.addCase(coinsList.fulfilled, (state, action) => {
+      state.coinsList = action.payload;
+      state.paginationList = action.payload;
     });
 
     builder.addCase(singleCoin.fulfilled, (state, action) => {
@@ -122,22 +145,45 @@ export const stateValues = createSlice({
     builder.addCase(historicalChart.fulfilled, (state, action) => {
       state.chartData = action.payload;
     });
+
+    // ----------------- Data Rejection -------------------------
+    builder.addCase(coinsList.rejected, (state, action) => {
+      const {status, coinsList, paginationList, msg} = action.payload as { status: false, login: true, coinsList: any[], paginationList: any[], msg: string }
+      state.status = status;
+      state.coinsList = coinsList
+      state.paginationList = paginationList
+      state.alertMsg = msg;
+    });
+
+    builder.addCase(historicalChart.rejected, (state, action) => {
+      const {status, chartData, msg} = action.payload as { status: false, login: true, chartData: any[], msg: string }
+      state.status = status;
+      state.chartData = chartData
+      state.alertMsg = msg;
+    });
+
+    builder.addCase(singleCoin.rejected, (state, action) => {
+      const {status, singlecoin, msg} = action.payload as { status: false, login: true, singlecoin: any[], msg: string }
+      state.status = status;
+      state.singlecoin = singlecoin
+      state.alertMsg = msg;
+    });
+
   },
 });
 
 export const {
+  removeCredentials,
+  userLogin,
+  autMsg,
+  getStatus,
   currencyChange,
   inputChange,
   symbolChange,
-  translateEffects,
-  opacityEffects,
-  userLogin,
-  details,
+  getModal,
   clearwatchlist,
-  loginandSignInalert,
-  msg,
   removeData,
   period,
-  logoutmsg,
-  showWatchList
-} = stateValues.actions;
+  showWatchList,
+  showCoinInfo
+} = values.actions;

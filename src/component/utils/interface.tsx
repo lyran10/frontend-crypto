@@ -1,15 +1,11 @@
-export interface Animations {
-  showModal: string;
-  modalOpacity: string;
-  modalOut: () => void;
-}
-
 // login
 
 export interface User {
   email: string;
   password: string;
 }
+
+// Trending coins API Data
 
 export interface TrendingCoins {
   ath: string;
@@ -41,49 +37,37 @@ export interface TrendingCoins {
   total_volume: number;
 }
 
-// Animation modal
-
-export interface Translate {
-  showModal: string;
-  showOverlay: string;
-}
-
-export interface Opacity {
-  modalOpacity: string;
-  overlayOpacity: string;
-}
-
-export interface UserDetails {
-  _id: string;
-  email: string;
-  token: string;
-}
-
-interface AlertMsg {
-  msg: string;
-  alertMoveUp: string;
-}
 // reducer state
 
 export interface State {
+  status: boolean;
+  login: boolean;
+  signIn: boolean;
+  credentials: { id: string, email: string }
+  alertMsg: string;
+  dataMsg: string
   currency: string;
   symbol: string;
   inputSearch: string;
   coinsList: TrendingCoins[];
   paginationList: TrendingCoins[];
   filteredList: TrendingCoins[];
-  translate: Translate;
-  opacity: Opacity;
-  login: boolean;
-  userDetails: UserDetails;
+  modal: boolean;
   watchlist: string[];
-  alertMsg: string;
-  alertMoveUp: string;
-  tokenExpiredMsg: string;
-  tokenExpiredMsgMoveUp: string;
-  singlecoin: any[];
+  singlecoin: {};
   chartData: any[];
   days: number;
-  logoutMsg: string;
-  showWatchList : boolean;
+  showWatchList: boolean;
+  coinInfoButton: boolean
+}
+
+// HOC
+
+export type Auth = {
+  id: boolean;
+  show: boolean;
+  isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+  head?: string,
+  text?: string
 }

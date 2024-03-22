@@ -69,21 +69,18 @@ export const HamburgerButton = ({
       className="group flex md:hidden lg:hidden flex-col gap-1 cursor-pointer"
     >
       <div
-        className={`w-7 h-1 rounded-md ${
-          buttonChangeColor ? "bg-darkBlue" : "bg-offWhite "
-        } transition duration-500 ${hamAnimationDiv1}`}
+        className={`w-7 h-1 rounded-md ${buttonChangeColor ? "bg-darkBlue" : "bg-offWhite "
+          } transition duration-500 ${hamAnimationDiv1}`}
       ></div>
 
       <div
-        className={`w-7 h-1 rounded-md ${
-          buttonChangeColor ? "bg-darkBlue" : "bg-offWhite "
-        } transition duration-500 ${hamAnimationDiv3}`}
+        className={`w-7 h-1 rounded-md ${buttonChangeColor ? "bg-darkBlue" : "bg-offWhite "
+          } transition duration-500 ${hamAnimationDiv3}`}
       ></div>
 
       <div
-        className={`w-7 h-1 rounded-md ${
-          buttonChangeColor ? "bg-darkBlue" : "bg-offWhite "
-        } transition duration-500 ${hamAnimationDiv2}`}
+        className={`w-7 h-1 rounded-md ${buttonChangeColor ? "bg-darkBlue" : "bg-offWhite "
+          } transition duration-500 ${hamAnimationDiv2}`}
       ></div>
     </div>
   );

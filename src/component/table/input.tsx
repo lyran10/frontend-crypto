@@ -1,15 +1,11 @@
 import React from "react";
+import { useRedux } from "../../customHooks/useRedux";
 import { inputChange } from "../redux/reducer";
-import { useDispatch } from "react-redux/es/exports";
-import { AppDispatch } from "../redux/store";
 
 export const Input = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const [methods] = useRedux()
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(inputChange(event.target.value));
-    console.log(event.target.value);
-  };
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => methods.dispatch(inputChange(event.target.value));
 
   return (
     <input

@@ -1,52 +1,42 @@
-import React, { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
+import { useStorage } from "../../customHooks/UseStorage";
+import { useRedux } from "../../customHooks/useRedux";
 import { IoCloseSharp } from "react-icons/io5";
-import { useSelector, TypedUseSelectorHook } from "react-redux/es/exports";
-import { RootState } from "../redux/store";
-import { useDispatch } from "react-redux/es/exports";
-import { AppDispatch } from "../redux/store";
-import { loginandSignInalert, msg } from "../redux/reducer";
+import { getStatus, autMsg, userLogin } from "../redux/reducer";
+import { clearwatchlist } from "../redux/reducer";
 
-type Props = {
-  bg: string;
-};
-
-export const AlertMsg = ({ bg }: Props) => {
-  const [opacity,setOpacity] = useState<boolean>(false)
-  const dispatch = useDispatch<AppDispatch>();
-  const selector: TypedUseSelectorHook<RootState> = useSelector;
-  const res = selector((state) => state.currencyData.alertMsg);
-  const alertMoveUp = selector((state) => state.currencyData.alertMoveUp);
+export const AlertMsg = () => {
+  const [methods] = useRedux()
+  const [storage] = useStorage()
+  const [show, setShow] = useState<boolean>(false)
+  const message = methods.selector((state) => state.data.alertMsg)
+  const status = methods.selector((state) => state.data.status)
+  const login = methods.selector((state) => state.data.login)
 
   useEffect(() => {
-    if(res){
-      
-      setTimeout(() => {
-        setOpacity(true)
-      }, 500);
+    if (message) {
+      if (!login && message === "Logged out successfully") {
+        methods.dispatch(getStatus(false))
+        methods.dispatch(clearwatchlist([]));
+        storage.removeStorage()
+      }
 
-      setTimeout(() => {
-        setOpacity(false)
-      }, 2000);
+      setShow(true)
 
-      setTimeout(() => {
-        dispatch(msg(""))
-        // setOpacity(false)
-      }, 3000);
+      let opacityTimer = setTimeout(() => { setShow(false) }, 4000);
+      let msgTimer = setTimeout(() => { methods.dispatch(autMsg("")) }, 4200);
+
+      return () => {
+        clearTimeout(opacityTimer)
+        clearTimeout(msgTimer)
+      }
     }
- 
-    
-  }, [res]);
+  }, [message]);
 
   return (
-    <div
-      className={`transition flex z-[3000] justify-between gap-3 items-center px-2 left-[45%] ${opacity ? "opacity-[1]" : "opacity-0"} ${res ? "-translate-y-[800px]" : "-translate-y-[1000px]"} duration-500 absolute h-[40px] font-bold $ ${bg} rounded-md`}
-    >
-      <span className="">{res}</span>
-      <IoCloseSharp
-        className="cursor-pointer"
-        onClick={() => dispatch(loginandSignInalert("-translate-y-[1000px]"))}
-        size={25}
-      />
+    <div className={`transition flex z-[3000] text-[#f5f5f5] justify-between gap-3 items-center px-3 py-2 top-[20%] right-0 duration-500 fixed font-bold $ ${status ? "bg-[#3b82f6]" : "bg-[#ef4444]"} rounded-tl-lg rounded-bl-lg ${show ? "translate-x-0" : "translate-x-[500px]"}`}>
+      <span className="">{message}</span>
+      <IoCloseSharp className="cursor-pointer" onClick={() => setShow(false)} size={20} />
     </div>
   );
 };

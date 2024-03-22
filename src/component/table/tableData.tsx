@@ -1,22 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useRedux } from "../../customHooks/useRedux";
 import { Input } from "./input";
-import {
-  useDispatch,
-  useSelector,
-  TypedUseSelectorHook,
-} from "react-redux/es/exports";
-import { AppDispatch, RootState } from "../redux/store";
 import { Table } from "./table";
-import { coinssList } from "../redux/actions";
+import { coinsList } from "../redux/actions";
 
 export const TableData = () => {
+  const [methods] = useRedux()
   const [show, setShow] = useState<boolean>(false);
-  const dispatch = useDispatch<AppDispatch>();
-  const selector: TypedUseSelectorHook<RootState> = useSelector;
-  const currency = selector((state) => state.currencyData.currency);
+  const currency = methods.selector((state) => state.data.currency);
 
   const getCointsList = async () => {
-    dispatch(coinssList(currency));
+    methods.dispatch(coinsList(currency));
   };
 
   useEffect(() => {
@@ -32,9 +26,8 @@ export const TableData = () => {
   return (
     <div className="min-h-[500px] w-[100%]">
       <div
-        className={`transition duration-500 ${
-          show ? "opacity-[1]" : "opacity-0"
-        } flex justify-center items-center flex-col gap-5 w-[100%]`}
+        className={`transition duration-500 ${show ? "opacity-[1]" : "opacity-0"
+          } flex justify-center items-center flex-col gap-5 w-[100%]`}
       >
         <div className="flex justify-center items-center flex-col">
           <span className="lg:text-[30px] md:text-[30px] text-center text-[25px] mt-[40px]">

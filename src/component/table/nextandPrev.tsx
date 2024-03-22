@@ -47,9 +47,8 @@ export const NextandPrev = ({
       {pagination ? (
         <div className="mt-[20px] p-5 flex gap-3 items-center justify-center">
           <button
-            className={`${
-              prevDisabled ? "bg-alphaBlue" : "bg-darkBlue"
-            } p-2 px-5 text-white rounded-md`}
+            className={`${prevDisabled ? "bg-alphaBlue" : "bg-darkBlue"
+              } p-2 px-5 text-white rounded-md`}
             disabled={prevDisabled}
             onClick={() => prevPage()}
           >
@@ -57,26 +56,24 @@ export const NextandPrev = ({
           </button>
           {array
             ? array.map((num: string, index: number) => {
-                return (
-                  <span
-                    key={index}
-                    id={(index + 1).toString()}
-                    className={`cursor-pointer hidden md:block lg:block ${
-                      currentPage === index + 1
-                        ? "bg-darkBlue text-white"
-                        : "bg-white"
+              return (
+                <span
+                  key={index}
+                  id={(index + 1).toString()}
+                  className={`cursor-pointer hidden md:block lg:block ${currentPage === index + 1
+                      ? "bg-darkBlue text-white"
+                      : "bg-white"
                     } font-bold hover:bg-darkBlue hover:text-white transition duration-150 px-2 p-1`}
-                    onClick={() => handleClick(num)}
-                  >
-                    {num}
-                  </span>
-                );
-              })
+                  onClick={() => handleClick(num)}
+                >
+                  {num}
+                </span>
+              );
+            })
             : null}
           <button
-            className={`${
-              nextDisabled ? "bg-alphaBlue" : "bg-darkBlue"
-            } p-2 px-5 text-white rounded-md`}
+            className={`${nextDisabled ? "bg-alphaBlue" : "bg-darkBlue"
+              } p-2 px-5 text-white rounded-md`}
             onClick={() => nextPage()}
             disabled={nextDisabled}
           >

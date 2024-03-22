@@ -1,69 +1,36 @@
-import React, { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
+import { useRedux } from "../../customHooks/useRedux";
 import { numberWithCommas } from "../banner/carousel";
-import {
-  useDispatch,
-  useSelector,
-  TypedUseSelectorHook,
-} from "react-redux/es/exports";
-import { AppDispatch, RootState } from "../redux/store";
 import { SignInButton } from "../auth/signInButton";
-import { translateEffects, opacityEffects } from "../redux/reducer";
 import { AddCoinButton } from "./addCoinButton";
-import {Button} from "../watchlist/watchListButton"
+import { Button } from "../watchlist/watchListButton"
+import { singleCoin } from "../redux/actions";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
-import { useParams } from "react-router-dom";
+import { getStatus, showCoinInfo } from "../redux/reducer";
 
 type Props = {
-  coinData: any;
-};
-
-type Params = {
   id: string | undefined;
 };
 
-export const CoinInfo = ({ coinData }: Props) => {
-  const selector: TypedUseSelectorHook<RootState> = useSelector;
-  const dispatch = useDispatch<AppDispatch>();
-  const [show,setShow] = useState<boolean>(false)
-  const { id } = useParams<Params>();
-  const [arrow,setArrow] = useState<{arrow1 : string, arrow2 : string,arrow3 : string}>({
-    arrow1 : "-translate-y-2",
-    arrow2 : "w-8",
-    arrow3 : "translate-y-2"
-  })
-  const translate = selector((state) => state.currencyData.translate);
-  const Opacity = selector((state) => state.currencyData.opacity);
-  const symbol = selector((state) => state.currencyData.symbol);
-  const currency = selector((state) => state.currencyData.currency).toLowerCase();
-  const userLogin = selector((state) => state.currencyData.login);
-  const watchlist = selector((state) => state.currencyData.watchlist);
+export const CoinInfo = ({ id }: Props) => {
+  const [methods] = useRedux()
+  const [data, setData] = useState<any>({})
+  const symbol = methods.selector((state) => state.data.symbol);
+  const currency = methods.selector((state) => state.data.currency).toLowerCase();
+  const userLogin = methods.selector((state) => state.data.login);
+  const watchlist = methods.selector((state) => state.data.watchlist);
+  const singlecoin = methods.selector((state) => state.data.singlecoin);
+  const coinInfoButton = methods.selector((state) => state.data.coinInfoButton);
 
-  const ModalIn = () => {
-    let translateObj = {
-      ...translate,
-      showModal: "translate-y-[300px]",
-      overlay: "translate-x-[0px]",
-    };
-    dispatch(translateEffects(translateObj));
-    setTimeout(() => {
-      let opacityObj = {
-        ...Opacity,
-        modalOpacity: "opacity-1",
-        overlayOpacity: "opacity-50",
-      };
-      dispatch(opacityEffects(opacityObj));
-    }, 300);
-  };
+  useEffect(() => { methods.dispatch(singleCoin(id as string)); }, [id]);
 
+  useEffect(() => { setData(singlecoin) }, [singlecoin]);
+  
   const handleNav = () => {
-    setShow(show => !show ? true : false)
-    if(arrow.arrow1 === "-translate-y-2"){
-      setArrow({arrow1 : "-rotate-[33deg] -translate-y-2",arrow2 : "rotate-[90deg] translate-x-[14px] w-[36px]",arrow3 : "rotate-[33deg] translate-y-2"})
-    }else{
-      setArrow({arrow1 : "-translate-y-2",arrow2 : "w-8",arrow3 : "translate-y-2 "})
-    }
+    methods.dispatch(getStatus(true))
+    !coinInfoButton ? methods.dispatch(showCoinInfo(true)) : methods.dispatch(showCoinInfo(false))
   }
 
   const checkInList = () => {
@@ -72,79 +39,79 @@ export const CoinInfo = ({ coinData }: Props) => {
     }
   };
 
-  useEffect(() => {}, [symbol, currency, translate, Opacity, coinData]);
-
   return (
     <div className={`fixed left-0 bottom-3 flex justify-center items-end gap-1`}>
-    <div className={`flex flex-col gap-3 item-center duration-700 bg-[rgba(0,0,0,0.6)] ${show? "w-[200px] h-[420px] opacity-1 translate-x-0" : " -translate-x-[200px] delay-300 transition-translate h-0 w-0 opacity-0"}  text-[#f5f5f5] py-3 px-2 rounded-br-md rounded-tr-md`}>
-      {Object.keys(coinData).length !== 0 ? 
-      <>
-        <img
-      className={`h-10 w-10 duration-500 ${show ? "opacity-1" : "opacity-0"}`}
-      src={coinData?.image?.large}
-      alt={coinData?.name}
-    />
-      <div className={`flex flex-col gap-[1px] duration-500 ${show ? "opacity-1" : "opacity-0"}`}>
-       <span>Name</span>
-       <span className="font-bold">{coinData.name}</span>
-      </div>
-      <div className={`flex flex-col gap-[1px] duration-500 ${show ? "opacity-1" : "opacity-0"}`}>
-        <span> Rank</span>
-        <span className="font-bold">
-          {coinData.market_cap_rank}
-        </span>
-        </div>
-        <div className={`flex flex-col gap-[1px] duration-500 ${show ? "opacity-1" : "opacity-0"}`}>
-        <span>Current Price</span>
-        <span className="font-bold">{symbol}{numberWithCommas( coinData.market_data?.current_price[currency] )}</span>
-        </div>
-        <div className={`flex flex-col gap-[1px] duration-500 ${show ? "opacity-1" : "opacity-0 invisible"}`}>
-          <span>Market Cap</span>
-        <span className="font-bold">
-          {symbol}
-          {numberWithCommas(
-            coinData.market_data?.market_cap[currency]
-              ?.toString()
-              .slice(0, -4)
-          )}{" "}
-          M
-        </span>
-        {userLogin ? 
-            <div className="flex flex-col mt-5 gap-2 w-[100%]">
-              {!checkInList() ?
-                  <span className="text-center font-semibold text-[#f5f5f5]">
-                  Add {coinData.name} to your watch list
+      <div className={`flex flex-col gap-3 item-center justify-end duration-700 bg-[rgba(0,0,0,0.6)] ${coinInfoButton ? "w-[250px] h-[400px] opacity-1 translate-x-0" : " -translate-x-[200px] delay-300 transition-translate h-0 w-0 opacity-0"}  text-[#f5f5f5] py-3 px-2 rounded-br-md rounded-tr-md`}>
+        {Object.keys(data).length !== 0 ?
+          <div className="flex self-start w-full h-full">
+            <div className="flex flex-col gap-2 w-[60%]">
+              <div className={`flex flex-col gap-[1px] duration-500 ${coinInfoButton ? "opacity-1" : "opacity-0"}`}>
+                <span>Name</span>
+                <span className="font-bold">{data.name}</span>
+              </div>
+              <div className={`flex flex-col gap-[1px] duration-500 ${coinInfoButton ? "opacity-1" : "opacity-0"}`}>
+                <span> Rank</span>
+                <span className="font-bold">
+                  {data.market_cap_rank}
                 </span>
-               :
-               null
-               }
-      
-          <AddCoinButton />
+              </div>
+              <div className={`flex flex-col gap-[1px] duration-500 ${coinInfoButton ? "opacity-1" : "opacity-0"}`}>
+                <span>Current Price</span>
+                <span className="font-bold">{symbol}{numberWithCommas(data.market_data?.current_price[currency])}</span>
+              </div>
+              <div className={`flex flex-col gap-[1px] duration-500 ${coinInfoButton ? "opacity-1" : "opacity-0 invisible"}`}>
+                <span>Market Cap</span>
+                <span className="font-bold">
+                  {symbol}
+                  {numberWithCommas(
+                    data.market_data?.market_cap[currency]
+                      ?.toString()
+                      .slice(0, -4)
+                  )}{" "}
+                  M
+                </span>
+              </div>
+
+            </div>
+            <img
+              className={`h-24 duration-500 ${coinInfoButton ? "opacity-1" : "opacity-0"}`}
+              src={data?.image?.large}
+              alt={data?.name}
+            />
+
+          </div>
+          : null
+        }
+        {userLogin ?
+          <div className="flex flex-col gap-2 w-[100%]">
+            {!checkInList() ?
+              <span className="text-center font-semibold text-[#f5f5f5]">
+                Add {data.name} to your watch list
+              </span>
+              :
+              null
+            }
+
+            <AddCoinButton />
+          </div>
+          :
+          <div className="flex flex-col mt-5 gap-2 w-[100%]">
+            <span className="text-center font-semibold text-[#f5f5f5]">
+              Login to make your own watchlist
+            </span>
+            <SignInButton
+              navBg={true}
+              trueColor="text-[#f5f5f5]"
+              falseColor="text-[#f5f5f5]"
+            />
+          </div>
+        }
+      </div>
+      <Tippy placement="top" content="Coin Info" theme="light">
+        <div onClick={handleNav} className="w-[50px] h-[50px] md:w-[70px] md:h-[70px] lg:w-[70px] lg:h-[70px] flex justify-center items-center duration-500 rounded-md bg-alphaBlue">
+          <Button show={coinInfoButton} />
         </div>
-       : 
-        <div className="flex flex-col mt-5 gap-2 w-[100%]">
-          <span className="text-center font-semibold text-[#f5f5f5]">
-            Login to make your own watchlist
-          </span>
-          <SignInButton
-            navBg={true}
-            ModalIn={ModalIn}
-            // show="flex"
-            trueColor="text-[#f5f5f5]"
-            falseColor="text-[#f5f5f5]"
-          />
-        </div>
-      }
-        </div>
-       </>
-      : null
-}
-    </div>
-    <Tippy placement="top" content="Coin Info" theme="light">
-    <div onClick={handleNav} className="w-[50px] h-[50px] md:w-[70px] md:h-[70px] lg:w-[70px] lg:h-[70px] flex justify-center items-center duration-500 rounded-md bg-alphaBlue">
-    <Button arrow={arrow}/>
-    </div>
-    </Tippy>
+      </Tippy>
     </div>
 
   );

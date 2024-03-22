@@ -2,22 +2,20 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { trendingCoins } from "../utils/coinapi";
 import { TrendingCoins } from "../utils/interface";
-import { useSelector, TypedUseSelectorHook } from "react-redux/es/exports";
-import { RootState } from "../redux/store";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-import { carousel } from "../table/data";
+import { useRedux } from "../../customHooks/useRedux";
 
 export const numberWithCommas = (x: number) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
 export const Carousel = () => {
+  const [methods] = useRedux()
   const [coins, setCoins] = useState<TrendingCoins[]>([]);
   const [index, setIndex] = useState<number>(0);
-  const [animation,setAnimation] = useState<{next : boolean,prev : boolean}>({next : false,prev : false})
-  const [scale,setScale] = useState<boolean>(false)
-  const selector: TypedUseSelectorHook<RootState> = useSelector;
-  const currency = selector((state) => state.currencyData.currency);
+  const [animation, setAnimation] = useState<{ next: boolean, prev: boolean }>({ next: false, prev: false })
+  const [scale, setScale] = useState<boolean>(false)
+  const currency = methods.selector((state) => state.data.currency);
 
   const getData = async () => {
     const { data } = await axios.get(trendingCoins(currency));
@@ -31,19 +29,19 @@ export const Carousel = () => {
   useEffect(() => {
     const coin = document.querySelector('.coin');
 
-    const handleEvent = () => {   
+    const handleEvent = () => {
     }
-    if(coin){
-     coin.addEventListener('animationend',handleEvent);
+    if (coin) {
+      coin.addEventListener('animationend', handleEvent);
 
-      return () => {coin.removeEventListener('animationend',handleEvent)}
+      return () => { coin.removeEventListener('animationend', handleEvent) }
     }
-   
-  },[])
+
+  }, [])
 
   const next = () => {
     if (index === coins.length - 1) return;
-    setAnimation({...animation,next : true,prev : false})
+    setAnimation({ ...animation, next: true, prev: false })
 
     setTimeout(() => {
       setIndex((index) => index + 1);
@@ -51,13 +49,13 @@ export const Carousel = () => {
     }, 500);
 
     setTimeout(() => {
-      setAnimation({...animation,next : false,prev : false})
+      setAnimation({ ...animation, next: false, prev: false })
     }, 700);
   };
 
   const prev = () => {
     if (index === 0) return;
-    setAnimation({...animation,next : false,prev : true})
+    setAnimation({ ...animation, next: false, prev: true })
 
     setTimeout(() => {
       setIndex((index) => index - 1);
@@ -65,7 +63,7 @@ export const Carousel = () => {
     }, 500);
 
     setTimeout(() => {
-      setAnimation({...animation,next : false,prev : false})
+      setAnimation({ ...animation, next: false, prev: false })
     }, 700);
   };
 
@@ -91,11 +89,10 @@ export const Carousel = () => {
                 {coins[index]?.symbol}
               </span>
               <span
-                className={`text-[20px] font-bold ${
-                  coins[index]?.price_change_percentage_24h >= 0
+                className={`text-[20px] font-bold ${coins[index]?.price_change_percentage_24h >= 0
                     ? "text-[rgb(14,203,129)]"
                     : "text-[#D2042D]"
-                }`}
+                  }`}
               >
                 {" "}
                 {coins[index]?.price_change_percentage_24h >= 0 && "+"}{" "}

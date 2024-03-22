@@ -1,69 +1,53 @@
-import React, { useState, useEffect } from "react";
-import { NavBar } from "../nav/navbar";
-import { CoinInfo } from "../coin/coinInfo";
+import { useEffect } from "react";
+import { useRedux } from "../../customHooks/useRedux";
+import { useShow } from "../../customHooks/useShow";
+import { useStorage } from "../../customHooks/UseStorage";
 import { useParams } from "react-router-dom";
+import { NavBar } from "../nav/navbar";
+import { AlertMsg } from "../utils/alertMsg";
+import { CoinInfo } from "../coin/coinInfo";
 import { CoinChart } from "../coin/coinChart";
 import { WatchList } from "../watchlist/watchList";
 import { CurrencyDropDown } from "../nav/currencyDropDown";
-import { RootState, AppDispatch } from "../redux/store";
-import {
-  useSelector,
-  TypedUseSelectorHook,
-  useDispatch,
-} from "react-redux/es/exports";
-import { getwatchList, findUser, singleCoin } from "../redux/actions";
+import { getwatchList, findUser } from "../redux/actions";
 
 type Params = {
   id: string;
 };
 
 export const CoinPage = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const selector: TypedUseSelectorHook<RootState> = useSelector;
+  const [methods] = useRedux()
+  const [show] = useShow()
+  const [storage] = useStorage()
   const { id } = useParams<Params>();
-  const [show, setShow] = useState<boolean>(false);
-  const userLogin = selector((state) => state.currencyData.login);
-  const userDetails = selector((state) => state.currencyData.userDetails);
-  const singlecoin = selector((state) => state.currencyData.singlecoin);
+  const login = methods.selector((state) => state.data.login);
 
   const checkIfTokenExpired = async () => {
-    if (localStorage.getItem("id") !== null) {
-      let id = localStorage.getItem("id");
-      let token = localStorage.getItem("token");
-      dispatch(findUser({ id: id, token: token }));
-    }
+    if (storage.getValues() !== null) methods.dispatch(findUser({ id: storage.getValues().id }));
   };
 
   useEffect(() => {
-    setShow(true);
-    dispatch(singleCoin(id as string));
     checkIfTokenExpired();
-    if (userDetails._id !== "") {
-      dispatch(getwatchList(userDetails));
-    }
+    if (storage.getValues() !== null) methods.dispatch(getwatchList(storage.getValues().id));
   }, [id]);
 
   return (
     <div
-      className={`p-2 bg-darkBlue flex justify-center ${
-        show ? "opacity-1" : "opacity-0"
-      } duration-500 w-[100%]`}
+      className={`p-2 bg-darkBlue flex justify-center ${show ? "opacity-1" : "opacity-0"
+        } duration-500 w-[100%]`}
     >
       <NavBar />
       <div className="flex bg-darkBlue w-[100%] justify-center flex-col h-[100vh] items-center">
         <CoinChart id={id} />
-        {userLogin ? (
+        {login ? (
           <WatchList
-            height="h-[97vh]"
-            sm="hidden"
-            lg="lg:flex"
-            width="w-[20%]"
-            mt="mt-[100px]"
+
           />
         ) : null}
-          <CurrencyDropDown id="coin"/>
-          <CoinInfo coinData={singlecoin} />
+        <CurrencyDropDown id="coin" />
+        <CoinInfo id={id} />
       </div>
+      <AlertMsg />
     </div>
   );
 };

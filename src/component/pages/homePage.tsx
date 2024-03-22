@@ -1,56 +1,41 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useRedux } from "../../customHooks/useRedux";
+import { useShow } from "../../customHooks/useShow";
+import { useStorage } from "../../customHooks/UseStorage";
 import { Banner } from "../banner/banner";
 import { NavBar } from "../nav/navbar";
 import { TableData } from "../table/tableData";
-import { useDispatch } from "react-redux/es/exports";
-import { AppDispatch } from "../redux/store";
-import { RootState } from "../redux/store";
-import { useSelector, TypedUseSelectorHook } from "react-redux/es/exports";
 import { findUser } from "../redux/actions";
 import { WatchList } from "../watchlist/watchList";
 import { CurrencyDropDown } from "../nav/currencyDropDown";
 import { AlertMsg } from "../utils/alertMsg";
+import { LoginAndSignInTabs } from "../auth/loginAndSignInTabs";
 
 export const HomePage = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const [show, setShow] = useState<boolean>(false);
-  const selector: TypedUseSelectorHook<RootState> = useSelector;
-  const userLog = selector((state) => state.currencyData.login);
-  const userDetails = selector((state) => state.currencyData.userDetails);
+  const [methods] = useRedux()
+  const [show] = useShow()
+  const [storage] = useStorage()
+  const login = methods.selector((state) => state.data.login);
 
   const checkIfTokenExpired = async () => {
-    if (localStorage.getItem("id") !== null && userDetails._id === "") {
-      let id = localStorage.getItem("id");
-      let token = localStorage.getItem("token");
-      dispatch(findUser({ id: id, token: token }));
-    }
+    if (storage.getValues() !== null) methods.dispatch(findUser({ id: storage.getValues().id }));
   };
 
-  useEffect(() => {
-    checkIfTokenExpired();
-    setShow(true);
-  }, [userLog]);
+  useEffect(() => { checkIfTokenExpired(); }, [login]);
 
   return (
     <div
-      className={`flex relative flex-col w-[100%] ${
-        show ? "opacity-1" : "opacity-0"
-      } duration-500 justify-center items-center gap-2`}
-    >
+      className={`flex relative flex-col w-[100%] ${show ? "opacity-1" : "opacity-0"} duration-500 justify-center items-center gap-2`}>
       <NavBar />
       <Banner />
       <TableData />
-      {userLog ? (
-          <WatchList
-            height="h-[97vh]"
-            sm="hidden"
-            lg="lg:flex"
-            width="w-[20%]"
-            mt="mt-[100px]"
-          />
-         ) : null}
-         <CurrencyDropDown id={"home"}/>
-         <AlertMsg bg="bg-lightBlue" />
+      {login ? (
+        <WatchList
+        />
+      ) : null}
+      <CurrencyDropDown id={"home"} />
+      <AlertMsg />
+      <LoginAndSignInTabs />
     </div>
   );
 };

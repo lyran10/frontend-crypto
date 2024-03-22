@@ -1,28 +1,26 @@
-import React, { useState, useEffect } from "react";
-import { LoginAndSignInTabs } from "../auth/loginAndSignInTabs";
+import { useState, useEffect } from "react";
+import { useRedux } from "../../customHooks/useRedux";
+import { useStorage } from "../../customHooks/UseStorage";
+import { Link } from "react-router-dom";
 import { SignInButton } from "../auth/signInButton";
 import { Logout } from "../auth/logout";
-import { useSelector, TypedUseSelectorHook } from "react-redux/es/exports";
-import { RootState } from "../redux/store";
-import { translateEffects, opacityEffects } from "../redux/reducer";
-import { useDispatch } from "react-redux/es/exports";
-import { AppDispatch } from "../redux/store";
-import { Link } from "react-router-dom";
+import { getModal, removeCredentials } from "../redux/reducer";
 import "tippy.js/dist/tippy.css";
 
 export const NavBar = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const selector: TypedUseSelectorHook<RootState> = useSelector;
-  const userDetails = selector((state) => state.currencyData.userDetails);
-  const translate = selector((state) => state.currencyData.translate);
-  const Opacity = selector((state) => state.currencyData.opacity);
-  const userLogin = selector((state) => state.currencyData.login);
-  const logoutMsg = selector((state) => state.currencyData.logoutMsg);
-  const { showModal, showOverlay } = translate;
-  const { overlayOpacity, modalOpacity } = Opacity;
+  const [methods] = useRedux()
+  const [storage] = useStorage()
+  const login = methods.selector((state) => state.data.login);
+  const { id, email } = methods.selector((state) => state.data.credentials);
   const [navBg, setnavBg] = useState<boolean>(false);
 
-  useEffect(() => {}, [translate, Opacity, userDetails, userLogin, logoutMsg]);
+  useEffect(() => {
+    if (id && email) {
+      storage.handleStorage({ id, email })
+      methods.dispatch(removeCredentials({ id: "", email: "" }))
+      methods.dispatch(getModal(false))
+    }
+  }, [id, email, login]);
 
   const changeColor = () => {
     if (window.scrollY > 650) {
@@ -33,59 +31,6 @@ export const NavBar = () => {
   };
 
   window.addEventListener("scroll", changeColor);
-
-  const ModalIn = () => {
-    let translateObj = {
-      ...translate,
-      showModal: "translate-y-[300px]",
-      overlay: "translate-x-[0px]",
-    };
-    dispatch(translateEffects(translateObj));
-    setTimeout(() => {
-      let opacityObj = {
-        ...Opacity,
-        modalOpacity: "opacity-1",
-        overlayOpacity: "opacity-50",
-      };
-      dispatch(opacityEffects(opacityObj));
-    }, 300);
-  };
-
-  const ModalOut = () => {
-    let opacityObj = {
-      ...Opacity,
-      modalOpacity: "opacity-0",
-      overlayOpacity: "opacity-0",
-    };
-    dispatch(opacityEffects(opacityObj));
-
-    setTimeout(() => {
-      let translateObj = {
-        ...translate,
-        overlay: "translate-x-[1700px]",
-        showModal: "-translate-y-[800px]",
-      };
-      dispatch(translateEffects(translateObj));
-    }, 400);
-  };
-
-  // const convertFile = async (file: any) => {};
-
-  // const handleClick = (e: any) => {
-  //   e.preventDefault();
-  // };
-
-  // const handleFileUpload = async (e: any) => {
-  //   const file = e.target.files[0];
-  //   console.log(file)
-  //   const config = {
-  //     headers: {
-  //       'Accept': 'image/jpeg, image/jpg, image/png',
-  //     },
-  //   };
-  //   const {data} = await axios.post("http://localhost:4000/uploads",{image : file},config)
-  //   console.log(data)
-  // };
 
   return (
     <nav
@@ -98,9 +43,67 @@ export const NavBar = () => {
           <img src="https://img.icons8.com/fluency/48/000000/cryptocurrency.png" />
         </Link>
         <ul className="flex">
-          {userDetails._id !== "" && userLogin === true ? (
+          {storage.getValues() && login ? (
             <li className="flex me-[20px] justify-center items-center gap-2">
-              {/* <Tippy content="Upload Photo">
+              <span
+                className={`font-bold ${navBg ? "text-[#191825]" : "text-offWhite"}`}
+              >
+                {storage.getValues().email}
+              </span>
+            </li>
+          ) : null}
+          <li>
+            {login ? (
+              <Logout
+                navBg={navBg}
+                show="flex"
+                trueColor="text-[#191825]"
+                falseColor="text-offWhite"
+              />
+            ) : (
+              <SignInButton
+                navBg={navBg}
+                trueColor="text-[#190ab5]"
+                falseColor="text-offWhite"
+              />
+            )}
+          </li>
+        </ul>
+      </div>
+    </nav>
+  );
+};
+
+
+
+
+
+
+
+
+
+
+// const convertFile = async (file: any) => {};
+
+// const handleClick = (e: any) => {
+//   e.preventDefault();
+// };
+
+// const handleFileUpload = async (e: any) => {
+//   const file = e.target.files[0];
+//   console.log(file)
+//   const config = {
+//     headers: {
+//       'Accept': 'image/jpeg, image/jpg, image/png',
+//     },
+//   };
+//   const {data} = await axios.post("http://localhost:4000/uploads",{image : file},config)
+//   console.log(data)
+// };
+
+
+
+{/* <Tippy content="Upload Photo">
                 <form method="POST" action="http://localhost:4000/uploads">
                   <label htmlFor="uploadFile">
                     <img
@@ -125,48 +128,3 @@ export const NavBar = () => {
               <input type="submit"/>
                 </form>
               </Tippy> */}
-             <span
-                className={` ${navBg ? "text-[#191825]" : "text-offWhite"}`}
-              >
-                {userDetails.email}
-              </span>
-            </li>
-           ) : null}
-          <li>
-            {userLogin ? (
-              <Logout
-                navBg={navBg}
-                show="flex"
-                trueColor="text-[#191825]"
-                falseColor="text-offWhite"
-              />
-            ) : (
-              <SignInButton
-                ModalIn={ModalIn}
-                navBg={navBg}
-                // show="hidden"
-                trueColor="text-[#191825]"
-                falseColor="text-offWhite"
-              />
-            )}
-          </li>
-        </ul>
-         <LoginAndSignInTabs
-          showModal={showModal}
-          modalOpacity={modalOpacity}
-          modalOut={ModalOut}
-        /> 
-      </div>
-
-      <div
-        onClick={() => ModalOut()}
-        className={`bg-darkBlue h-screen w-[100vw] transition duration-300 top-[100%] bottom-0 left-0 right-0  absolute ${overlayOpacity} ${showOverlay}`}
-      ></div>
-      <div
-        className={`bg-lightBlue duration-300 absolute px-2 font-bold rounded-md ${logoutMsg}`}
-      >
-        Logged out Successfully
-      </div>
-    </nav>
-  );
-};
