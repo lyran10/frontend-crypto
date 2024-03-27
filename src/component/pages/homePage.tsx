@@ -30,8 +30,7 @@ export const HomePage = () => {
       <Banner />
       <TableData />
       {login ? (
-        <WatchList
-        />
+        <WatchList />
       ) : null}
       <CurrencyDropDown id={"home"} />
       <AlertMsg />
