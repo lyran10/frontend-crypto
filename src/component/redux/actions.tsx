@@ -19,11 +19,10 @@ export const findUser = createAsyncThunk(
       return data;
     } catch (error) {
       console.log(error)
-      if (axios.isAxiosError(error)) {
-        let axiosError = error as AxiosError<{ msg: string, status: boolean }>
-        return rejectWithValue(axiosError.response?.data)
-      }
-      return error
+      // if (axios.isAxiosError(error)) {
+      //   let axiosError = error as AxiosError<{ msg: string, status: boolean }>
+        return rejectWithValue(error)
+      // }
     }
 
   }
