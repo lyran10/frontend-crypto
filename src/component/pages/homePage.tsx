@@ -22,7 +22,7 @@ export const HomePage = () => {
   };
 
   useEffect(() => { checkIfTokenExpired(); }, []);
-console.log(window.location.protocol)
+console.log(window.location.hostname)
   return (
     <div
       className={`flex relative flex-col w-[100%] ${show ? "opacity-1" : "opacity-0"} duration-500 justify-center items-center gap-2`}>
