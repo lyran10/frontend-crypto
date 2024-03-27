@@ -47,7 +47,7 @@ export const WatchList = () => {
 
   const handleNav = () => !watchListButton ? methods.dispatch(showWatchList(true)) : methods.dispatch(showWatchList(false))
 
-  // useEffect(() => { methods.dispatch(getwatchList(storage.getValues()?.id)) }, [currency])
+  useEffect(() => { methods.dispatch(getwatchList(storage.getValues()?.id)) }, [currency])
 
   return (
     <div className={`flex fixed bottom-1 gap-3 items-end right-0 ${watchListButton ? "" : "translate-y-[80px]"}`}>
