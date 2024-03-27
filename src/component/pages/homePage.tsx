@@ -21,7 +21,7 @@ export const HomePage = () => {
     if (storage.getValues() !== null) methods.dispatch(findUser({ id: storage.getValues().id }));
   };
 
-  useEffect(() => { checkIfTokenExpired(); }, [login]);
+  useEffect(() => { checkIfTokenExpired(); }, []);
 
   return (
     <div
