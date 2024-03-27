@@ -18,6 +18,7 @@ export const findUser = createAsyncThunk(
       console.log(data)
       return data;
     } catch (error) {
+      console.log(error)
       if (axios.isAxiosError(error)) {
         let axiosError = error as AxiosError<{ msg: string, status: boolean }>
         return rejectWithValue(axiosError.response?.data)
