@@ -14,7 +14,8 @@ export const findUser = createAsyncThunk(
   "crypto/findUser",
   async ({ id }: { id: string | undefined }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/expiry`, { 
+      const { data } = await axios(`${process.env.REACT_APP_SERVER_URL}/api/expiry`, { 
+        method : "post",
         data : id,
         withCredentials: true
        });
