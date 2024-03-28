@@ -99,6 +99,7 @@ export const values = createSlice({
     });
 
     builder.addCase(login.fulfilled, (state, action) => {
+      console.log(action.payload)
       state.alertMsg = action.payload.msg;
       state.login = action.payload.status;
       state.status = action.payload.status

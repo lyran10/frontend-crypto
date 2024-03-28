@@ -22,10 +22,9 @@ export const CoinPage = () => {
   const [storage] = useStorage()
   const { id } = useParams<Params>();
   const login = methods.selector((state) => state.data.login);
-  console.log(id)
+  
   const checkIfTokenExpired = async () => {
     if (login && storage.getValues() !== null){
-      console.log(storage.getValues().id)
       methods.dispatch(findUser({ id: storage.getValues().id }));
     } 
   };
@@ -33,7 +32,6 @@ export const CoinPage = () => {
   useEffect(() => {
     checkIfTokenExpired();
     if (storage.getValues() !== null){
-      console.log(storage.getValues().id )
       methods.dispatch(getwatchList(storage.getValues().id));
     } 
   }, [id]);

@@ -16,6 +16,7 @@ export const NavBar = () => {
 
   useEffect(() => {
     if (id && email) {
+      console.log(id,email)
       storage.handleStorage({ id, email })
       methods.dispatch(removeCredentials({ id: "", email: "" }))
       methods.dispatch(getModal(false))
