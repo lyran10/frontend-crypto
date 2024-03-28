@@ -1,6 +1,7 @@
 export const useStorage = () => {
 
   const handleStorage = (user : {id : string, email : string}) => {
+    console.log(user)
     if(!localStorage.getItem("user")) localStorage.setItem("user",JSON.stringify(user))
   }
 
