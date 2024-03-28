@@ -10,6 +10,7 @@ import { CoinChart } from "../coin/coinChart";
 import { WatchList } from "../watchlist/watchList";
 import { CurrencyDropDown } from "../nav/currencyDropDown";
 import { getwatchList, findUser } from "../redux/actions";
+import { LoginAndSignInTabs } from "../auth/loginAndSignInTabs";
 
 type Params = {
   id: string;
