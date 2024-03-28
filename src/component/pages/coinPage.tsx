@@ -48,6 +48,7 @@ export const CoinPage = () => {
         <CoinInfo id={id} />
       </div>
       <AlertMsg />
+      <LoginAndSignInTabs />
     </div>
   );
 };
