@@ -13,15 +13,15 @@ export const NavBar = () => {
   const login = methods.selector((state) => state.data.login);
   const { id, email } = methods.selector((state) => state.data.credentials);
   const [navBg, setnavBg] = useState<boolean>(false);
-console.log(id)
-console.log(email)
+// console.log(id)
+// console.log(email)
   useEffect(() => {
     console.log(id,email)
-    // if (id && email) {
+    if (id && email) {
       storage.handleStorage({ id, email })
       methods.dispatch(removeCredentials({ id: "", email: "" }))
       methods.dispatch(getModal(false))
-    // }
+    }
   }, [id, email, login]);
 
   const changeColor = () => {
