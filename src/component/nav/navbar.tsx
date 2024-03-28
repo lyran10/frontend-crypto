@@ -13,7 +13,8 @@ export const NavBar = () => {
   const login = methods.selector((state) => state.data.login);
   const { id, email } = methods.selector((state) => state.data.credentials);
   const [navBg, setnavBg] = useState<boolean>(false);
-
+console.log(id)
+console.log(email)
   useEffect(() => {
     if (id && email) {
       console.log(id,email)
