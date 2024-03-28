@@ -17,14 +17,12 @@ console.log(id)
 console.log(email)
   useEffect(() => {
     console.log(id,email)
-    if (id && email) {
+    // if (id && email) {
       storage.handleStorage({ id, email })
       methods.dispatch(removeCredentials({ id: "", email: "" }))
       methods.dispatch(getModal(false))
-    }
+    // }
   }, [id, email, login]);
-
-  console.log("emial")
 
   const changeColor = () => {
     if (window.scrollY > 650) {
