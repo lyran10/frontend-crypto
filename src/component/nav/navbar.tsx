@@ -24,6 +24,8 @@ console.log(email)
     }
   }, [id, email, login]);
 
+  console.log("emial")
+
   const changeColor = () => {
     if (window.scrollY > 650) {
       setnavBg(true);
