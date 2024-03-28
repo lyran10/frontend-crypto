@@ -15,6 +15,7 @@ export const findUser = createAsyncThunk(
   async ({ id }: { id: string | undefined }, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/expiry`, { id: id }, { withCredentials: true });
+      console.log(data)
       return data;
     } catch (error) {
       console.log(error)
@@ -45,7 +46,6 @@ export const login = createAsyncThunk(
     const { email, password } = user
     try {
       const { data } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/login`, { email, password }, { withCredentials: true });
-      console.log(data)
       return data
     } catch (error) {
       if (axios.isAxiosError(error)) {

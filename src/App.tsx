@@ -15,4 +15,5 @@ function App() {
   );
 }
 
+// "proxy": "https://crypto-app-api-irub.onrender.com",
 export default App;
