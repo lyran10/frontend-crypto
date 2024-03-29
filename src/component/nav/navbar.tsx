@@ -16,7 +16,6 @@ export const NavBar = () => {
 // console.log(id)
 // console.log(email)
   useEffect(() => {
-    console.log(id,email)
     if (id && email) {
       storage.handleStorage({ id, email })
       methods.dispatch(removeCredentials({ id: "", email: "" }))
@@ -31,7 +30,7 @@ export const NavBar = () => {
       setnavBg(false);
     }
   };
-
+console.log(login)
   window.addEventListener("scroll", changeColor);
 
   return (
