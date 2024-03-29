@@ -24,11 +24,11 @@ export const CoinInfo = ({ id }: Props) => {
   const singlecoin = methods.selector((state) => state.data.singlecoin);
   const coinInfoButton = methods.selector((state) => state.data.coinInfoButton);
 
-  useEffect(() => { methods.dispatch(singleCoin(id as string)); }, [id]);
+  useEffect(() => { methods.dispatch(singleCoin(id as string)); }, []);
 
   useEffect(() => { setData(singlecoin) }, [singlecoin]);
   
-  const handleNav = () => {
+  const handleInfoButton = () => {
     methods.dispatch(getStatus(true))
     !coinInfoButton ? methods.dispatch(showCoinInfo(true)) : methods.dispatch(showCoinInfo(false))
   }
@@ -108,7 +108,7 @@ export const CoinInfo = ({ id }: Props) => {
         }
       </div>
       <Tippy placement="top" content="Coin Info" theme="light">
-        <div onClick={handleNav} className="w-[50px] h-[50px] md:w-[70px] md:h-[70px] lg:w-[70px] lg:h-[70px] flex justify-center items-center duration-500 rounded-md bg-alphaBlue">
+        <div onClick={handleInfoButton} className="w-[50px] h-[50px] md:w-[70px] md:h-[70px] lg:w-[70px] lg:h-[70px] flex justify-center items-center duration-500 rounded-md bg-alphaBlue">
           <Button show={coinInfoButton} />
         </div>
       </Tippy>

@@ -26,6 +26,7 @@ export const WatchList = () => {
   const days = methods.selector(state => state.data.days)
 
   const removeCoin = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation()
     setSelectedId(event.currentTarget.id)
     methods.dispatch(getStatus(true))
     methods.dispatch(deleteCoin({ id: storage.getValues()?.id, coin: event.currentTarget.id }))
@@ -68,7 +69,7 @@ export const WatchList = () => {
                   <li
                     onClick={() => handleClick(coin.id)}
                     key={coin?.id}
-                    className={`cursor-pointer flex justify-between text-white p-1 duration-500 ${selectedCoin === coin?.id ? "bg-[#f5f5f5] text-darkBlue" : ""}`}
+                    className={`cursor-pointer relative flex justify-between text-white p-1 duration-500 ${selectedCoin === coin?.id ? "bg-[#f5f5f5] text-darkBlue" : ""}`}
                   >
                     <div className='flex gap-1'>
                       <div className='w-[30px] h-[30px]'><img className='w-full h-full' src={coin.image} alt="" /></div>
@@ -80,7 +81,7 @@ export const WatchList = () => {
                         {numberWithCommas(parseInt(coin?.current_price.toFixed(2)))}
                       </span>
                       {coin.id == selectedId ?
-                        <ImSpinner2 size={20} className={`animate-spin  ${selectedCoin === coin?.id ? " text-darkBlue" : "text-offWhite"}`} />
+                        <ImSpinner2 size={20} className={`animate-spin absolute ${selectedCoin === coin?.id ? " text-darkBlue" : "text-offWhite"}`} />
                         : <DeleteCoinButton selectedCoin={selectedCoin} removeCoin={removeCoin} coinId={coin.id} />}
                     </div>
                   </li>

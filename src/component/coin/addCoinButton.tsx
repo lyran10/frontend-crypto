@@ -25,7 +25,7 @@ export const AddCoinButton = () => {
     }
   }, [message])
 
-  useEffect(() => { }, [watchlist, storage.getValues().id]);
+  // useEffect(() => { }, [watchlist, storage.getValues()]);
 
   const add = () => {
     setLoading(true);
