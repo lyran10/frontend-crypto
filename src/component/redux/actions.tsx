@@ -1,4 +1,4 @@
-import { createAsyncThunk, isRejected, isRejectedWithValue } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { CoinList, SingleCoin, HistoricalChart } from "../utils/coinapi";
 
@@ -15,6 +15,7 @@ export const findUser = createAsyncThunk(
   async ({ id }: { id: string | undefined }, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/expiry`, { id: id }, { withCredentials: true });
+      console.log(data)
       return data;
     } catch (error) {
       console.log(error)
