@@ -9,13 +9,12 @@ type Data = {
 };
 
 // ---------------- Authentication API--------------------------
-
+// ${process.env.REACT_APP_SERVER_URL}
 export const findUser = createAsyncThunk(
   "crypto/findUser",
   async ({ id }: { id: string | undefined }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/expiry`, { id: id }, { withCredentials: true });
-      console.log(data)
+      const { data } = await axios.post(`http://localhost:4000/api/expiry`, { id: id }, { withCredentials: true });
       return data;
     } catch (error) {
       console.log(error)
@@ -32,7 +31,7 @@ export const logout = createAsyncThunk(
   "crypto/logout",
   async () => {
     try {
-      const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/logout`, { withCredentials: true });
+      const { data } = await axios.get(`http://localhost:4000/api/logout`, { withCredentials: true });
       return data;
     } catch (error) {
       console.log(error)
@@ -45,7 +44,7 @@ export const login = createAsyncThunk(
   async (user: { email: string, password: string }, { rejectWithValue }) => {
     const { email, password } = user
     try {
-      const { data } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/login`, { email, password }, { withCredentials: true });
+      const { data } = await axios.post(`http://localhost:4000/api/login`, { email, password }, { withCredentials: true });
       return data
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -61,7 +60,7 @@ export const signIn = createAsyncThunk(
   async (user: { email: string, password: string }) => {
     const { email, password } = user
     try {
-      const { data } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/signup`, { email, password });
+      const { data } = await axios.post(`http://localhost:4000/api/signup`, { email, password });
       return data
     } catch (error) {
       console.log(error);
@@ -120,7 +119,7 @@ export const getwatchList = createAsyncThunk(
       data: {
         list: { watchlist },
       },
-    } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/list`, { id: id }, { withCredentials: true });
+    } = await axios.post(`http://localhost:4000/api/list`, { id: id }, { withCredentials: true });
     return watchlist;
   }
 );
@@ -130,7 +129,7 @@ export const addCoin = createAsyncThunk(
   async (info: { id: string, coin: string | undefined }) => {
     try {
       const { data } = await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/api/addcoin`, info, { withCredentials: true }
+        `http://localhost:4000/api/addcoin`, info, { withCredentials: true }
       );
       return data.msg
     } catch (error) {
@@ -143,7 +142,7 @@ export const deleteCoin = createAsyncThunk(
   "crypto/delCoin",
   async (info: { id: string, coin: string | undefined }) => {
     try {
-      const { data } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/deletecoin`, info, { withCredentials: true })
+      const { data } = await axios.post(`http://localhost:4000/api/deletecoin`, info, { withCredentials: true })
       return data.msg
     } catch (error) {
       console.log(error)

@@ -18,7 +18,7 @@ export const HomePage = () => {
   const login = methods.selector((state) => state.data.login);
 
   const checkIfTokenExpired = async () => {
-    if (login && storage.getValues() !== null) methods.dispatch(findUser({ id: storage.getValues().id }));
+    if (storage.getValues() !== null) methods.dispatch(findUser({ id: storage.getValues().id }));
   };
 
   useEffect(() => { 
