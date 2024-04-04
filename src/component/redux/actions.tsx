@@ -40,6 +40,7 @@ export const login = createAsyncThunk(
   "crypto/login",
   async (user: { email: string, password: string }, { rejectWithValue }) => {
     const { email, password } = user
+    console.log(process.env.REACT_APP_SERVER_URL)
     try {
       const { data } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/login`, { email, password }, { withCredentials: true });
       return data
