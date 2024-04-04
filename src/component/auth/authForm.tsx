@@ -45,7 +45,7 @@ export const AuthForm = ({ id, show, isLoading, setIsLoading, head, text }: Auth
         </div>
 
         <div className="flex justify-center items-center w-full mb-3 relative">
-          <RiLockPasswordLine className="text-[#06b6d4] text-[2.5rem] border-b border-[#f5f5f5] mt-[3px] p-1" />
+          <RiLockPasswordLine className="text-[#06b6d4] text-[2.5rem] border-b border-[#f5f5f5] p-1" />
           <input
             {...changeEvents}
             className="outline-none p-2 border-b bg-[rgba(0,0,0,0)] text-[#f5f5f5]  font-semibold w-[100%]"
