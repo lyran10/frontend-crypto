@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
-import { CoinList, SingleCoin, HistoricalChart } from "../utils/coinapi";
+import { CoinList, SingleCoin, HistoricalChart, trendingCoins } from "../../api/coinapi";
+import { ErrorMessages } from "../../constants/constants";
 
 type Data = {
   id: string | undefined;
@@ -16,11 +17,7 @@ export const findUser = createAsyncThunk(
       const { data } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/expiry`, { id: id }, { withCredentials: true });
       return data;
     } catch (error) {
-      console.log(error)
-      // if (axios.isAxiosError(error)) {
-      //   let axiosError = error as AxiosError<{ msg: string, status: boolean }>
         return rejectWithValue(error)
-      // }
     }
 
   }
@@ -34,6 +31,7 @@ export const logout = createAsyncThunk(
       return data;
     } catch (error) {
       console.log(error)
+
     }
   }
 );
@@ -46,23 +44,22 @@ export const login = createAsyncThunk(
       const { data } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/login`, { email, password }, { withCredentials: true });
       return data
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        let axiosError = error as AxiosError<{ msg: string, status: boolean }>
-        return axiosError.response?.data
+        let axiosError = error as AxiosError
+        return rejectWithValue(axiosError)
       }
     }
-  }
 );
 
 export const signIn = createAsyncThunk(
   "crypto/signIn",
-  async (user: { email: string, password: string }) => {
+  async (user: { email: string, password: string },{rejectWithValue}) => {
     const { email, password } = user
     try {
       const { data } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/signup`, { email, password });
       return data
     } catch (error) {
-      console.log(error);
+      let axiosError = error as AxiosError
+        return rejectWithValue(axiosError)
     }
   }
 );
@@ -73,11 +70,12 @@ export const coinsList = createAsyncThunk(
   async (currency: string, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(CoinList(currency));
+      console.log(data)
       return data;
     } catch (error) {
-      return rejectWithValue({ status: false, login: true, coinsList: [], paginationList: [], msg: "Not able to fetch data. Please try later" })
+     return rejectWithValue({ status: false, login: true, coinsList: [], paginationList: [], msg: ErrorMessages.SERVER_ERROR})
+      // throw new Error
     }
-
   }
 );
 
@@ -88,7 +86,8 @@ export const singleCoin = createAsyncThunk(
       const { data } = await axios.get(SingleCoin(currency));
       return data;
     } catch (error) {
-      return rejectWithValue({ status: false, login: true, singlecoin: [], msg: "Not able to fetch data. Please try later" })
+      rejectWithValue({ status: false, login: true, singlecoin: [], msg: ErrorMessages.SERVER_ERROR })
+      // throw new Error
     }
 
   }
@@ -98,14 +97,25 @@ export const historicalChart = createAsyncThunk(
   "crypto/historicalChart",
   async ({ currency, days, id }: Data, { rejectWithValue }) => {
     try {
-      const {
-        data: { prices },
+      const { data: { prices },
       } = await axios.get(HistoricalChart(id, days, currency));
       return prices;
     } catch (error) {
-      return rejectWithValue({ status: false, login: true, chartData: [], msg: "Not able to fetch data. Please try later" })
+      rejectWithValue({ status: false, login: true, chartData: [], msg: ErrorMessages.SERVER_ERROR })
+      // throw new Error
     }
 
+  }
+);
+
+export const trending = createAsyncThunk(
+  "crypto/trending",
+  async (currency : string, { rejectWithValue }) => {
+    try { const { data: { prices } } = await axios.get(trendingCoins(currency));
+      return prices;
+    } catch (error) {
+     return rejectWithValue({ status: false, login: true, trending: [], msg: ErrorMessages.SERVER_ERROR })
+    }
   }
 );
 
@@ -113,38 +123,42 @@ export const historicalChart = createAsyncThunk(
 
 export const getwatchList = createAsyncThunk(
   "crypto/watchList",
-  async (id: string) => {
-    const {
-      data: {
-        list: { watchlist },
-      },
-    } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/list`, { id: id }, { withCredentials: true });
-    return watchlist;
+  async (id: string, {rejectWithValue}) => {
+    try {
+      const { data: { list: { watchlist }}} = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/list`, { id: id }, { withCredentials: true });
+       return watchlist;
+    } catch (error) {
+      let axiosError = error as AxiosError
+      return rejectWithValue(axiosError)
+    }
+    
   }
 );
 
 export const addCoin = createAsyncThunk(
   "crypto/addCoin",
-  async (info: { id: string, coin: string | undefined }) => {
+  async (info: { id: string, coin: string | undefined },{rejectWithValue}) => {
     try {
       const { data } = await axios.post(
         `${process.env.REACT_APP_SERVER_URL}/api/addcoin`, info, { withCredentials: true }
       );
       return data.msg
     } catch (error) {
-      console.log(error);
+      let axiosError = error as AxiosError
+      return rejectWithValue(axiosError)
     }
   }
 );
 
 export const deleteCoin = createAsyncThunk(
   "crypto/delCoin",
-  async (info: { id: string, coin: string | undefined }) => {
+  async (info: { id: string, coin: string | undefined },{rejectWithValue}) => {
     try {
       const { data } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/deletecoin`, info, { withCredentials: true })
       return data.msg
     } catch (error) {
-      console.log(error)
+      let axiosError = error as AxiosError
+      return rejectWithValue(axiosError)
     }
   }
 );

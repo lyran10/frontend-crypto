@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import { CategoryScale } from "chart.js";
 import Chart from "chart.js/auto";
-import { Loading } from "../utils/loading";
+import { Loading } from "../common/loading";
 import { chartDays } from "./data";
 import { SelectButton } from "./selectedButton";
 import { historicalChart } from "../redux/actions";
@@ -19,6 +19,7 @@ export const CoinChart = ({ id }: Props) => {
   const [days, setdays] = useState(1);
   const currency = methods.selector((state) => state.data.currency);
   const chartData = methods.selector((state) => state.data.chartData);
+  const { chartError } = methods.selector((state) => state.data.errorMsg);
 
   useEffect(() => {
     methods.dispatch(historicalChart({ currency, days, id }));
@@ -26,9 +27,13 @@ export const CoinChart = ({ id }: Props) => {
 
   return (
     <section className="flex p-[30px] flex-col gap-3 mt-10 justify-center h-[90%] items-center w-[100%] text-offWhite">
-      {!chartData ? (
+      {
+      !chartError
+      ?
+      !chartData ? 
         <Loading />
-      ) : (
+       : 
+       <>
         <Line
           data={{
             labels: chartData.map((coin) => {
@@ -58,7 +63,7 @@ export const CoinChart = ({ id }: Props) => {
             },
           }}
         />
-      )}
+      
       <div className="flex gap-2 flex-wrap mb-3">
         {chartDays.map((data, index) => {
           return (
@@ -75,6 +80,10 @@ export const CoinChart = ({ id }: Props) => {
           );
         })}
       </div>
+       </>  
+       :
+       <div className="text-[#f5f5f5]">{chartError}</div> 
+      }
     </section>
   );
 };

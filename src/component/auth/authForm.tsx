@@ -5,7 +5,7 @@ import { FaUserCircle } from "react-icons/fa"
 import { RiLockPasswordLine } from "react-icons/ri"
 import { login, signIn } from "../redux/actions";
 import { AuthHOC } from "../HOC/authHOC";
-import { Auth } from "../utils/interface";
+import { Auth } from "../common/interface";
 
 export const AuthForm = ({ id, show, isLoading, setIsLoading, head, text }: Auth) => {
   const [methods] = useRedux()

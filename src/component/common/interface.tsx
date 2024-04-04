@@ -52,6 +52,7 @@ export interface State {
   coinsList: TrendingCoins[];
   paginationList: TrendingCoins[];
   filteredList: TrendingCoins[];
+  trending : any[]
   modal: boolean;
   watchlist: string[];
   singlecoin: {};
@@ -59,6 +60,7 @@ export interface State {
   days: number;
   showWatchList: boolean;
   coinInfoButton: boolean
+  errorMsg : { tableError : string,chartError : string, singleCoinError : string}
 }
 
 // HOC

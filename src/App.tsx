@@ -1,4 +1,3 @@
-import React from 'react';
 import './App.css';
 import { Route,Routes } from 'react-router-dom';
 import { HomePage } from './component/pages/homePage';
@@ -15,5 +14,4 @@ function App() {
   );
 }
 
-// "proxy": "https://crypto-app-api-irub.onrender.com",
 export default App;

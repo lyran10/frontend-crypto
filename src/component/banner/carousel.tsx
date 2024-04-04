@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { trendingCoins } from "../utils/coinapi";
-import { TrendingCoins } from "../utils/interface";
+import { useEffect, useState } from "react";
+import { TrendingCoins } from "../common/interface";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { useRedux } from "../../customHooks/useRedux";
+import { trending } from "../redux/actions";
 
 export const numberWithCommas = (x: number) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -16,15 +15,12 @@ export const Carousel = () => {
   const [animation, setAnimation] = useState<{ next: boolean, prev: boolean }>({ next: false, prev: false })
   const [scale, setScale] = useState<boolean>(false)
   const currency = methods.selector((state) => state.data.currency);
+  const trendingCoins = methods.selector((state) => state.data.trending);
 
-  const getData = async () => {
-    const { data } = await axios.get(trendingCoins(currency));
-    setCoins(data);
-  };
+  useEffect(() => { setCoins(trendingCoins) },[trendingCoins])
 
-  useEffect(() => {
-    getData();
-  }, [currency]);
+
+  useEffect(() => { methods.dispatch(trending(currency)) }, [currency]);
 
   useEffect(() => {
     const coin = document.querySelector('.coin');
@@ -69,7 +65,7 @@ export const Carousel = () => {
 
   return (
     <div className="flex gap-[200px] mt-11 transition relative duration-300">
-      {coins.length ? (
+      {coins && coins.length ? (
         <div className="flex justify-around items-center w-[95vw]">
           <IoIosArrowBack
             onClick={prev}

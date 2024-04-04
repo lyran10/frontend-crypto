@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { State } from "../utils/interface";
+import { State } from "../common/interface";
 import {
   coinsList,
   getwatchList,
@@ -11,6 +11,7 @@ import {
   signIn,
   addCoin,
   deleteCoin,
+  trending,
 } from "./actions";
 
 const initialState: State = {
@@ -26,13 +27,15 @@ const initialState: State = {
   coinsList: [],
   paginationList: [],
   filteredList: [],
+  trending : [],
   modal: false,
   watchlist: [],
   singlecoin: {},
   chartData: [],
   days: 1,
   showWatchList: false,
-  coinInfoButton: false
+  coinInfoButton: false,
+  errorMsg : { tableError : "",chartError : "", singleCoinError : ""}
 };
 
 export const values = createSlice({
@@ -102,7 +105,7 @@ export const values = createSlice({
       state.alertMsg = action.payload.msg;
       state.login = action.payload.status;
       state.status = action.payload.status
-      if (action.payload.user) state.credentials = { id: action.payload.user._id, email: action.payload.user.email }
+      state.credentials = { id: action.payload.user._id, email: action.payload.user.email }
     });
 
     builder.addCase(signIn.fulfilled, (state, action) => {
@@ -113,6 +116,18 @@ export const values = createSlice({
 
     // ----------------- Auth Rejection ---------------------
 
+    builder.addCase(login.rejected, (state, action : any) => {
+      state.alertMsg = action.payload.message;
+      state.login = false;
+      state.status = false
+    });
+
+    builder.addCase(signIn.rejected, (state, action : any) => {
+      state.alertMsg = action.payload.message;
+      state.signIn = false
+      state.status = false
+    });
+
     builder.addCase(findUser.rejected, (state, action: any) => {
       const { msg, status } = action.payload
       state.alertMsg = msg
@@ -120,7 +135,7 @@ export const values = createSlice({
       state.status = status
     });
 
-    // ----------------  Data --------------------
+    // ----------------  Database manipulation --------------------
     builder.addCase(addCoin.fulfilled, (state, action) => {
       state.alertMsg = action.payload;
     });
@@ -133,26 +148,50 @@ export const values = createSlice({
       state.watchlist = action.payload;
     });
 
-    builder.addCase(coinsList.fulfilled, (state, action) => {
-      state.coinsList = action.payload;
-      state.paginationList = action.payload;
+  // ----------------- Database Rejection -------------------------
+
+     builder.addCase(addCoin.rejected, (state, action : any) => {
+      state.alertMsg = action.payload.message;
     });
 
-    builder.addCase(singleCoin.fulfilled, (state, action) => {
-      state.singlecoin = action.payload;
+    builder.addCase(deleteCoin.rejected, (state, action : any) => {
+      state.alertMsg = action.payload.message;
     });
 
-    builder.addCase(historicalChart.fulfilled, (state, action) => {
-      state.chartData = action.payload;
+    builder.addCase(getwatchList.rejected, (state, action : any) => {
+      state.alertMsg = action.payload.message;
     });
 
-    // ----------------- Data Rejection -------------------------
+      // ----------------- API Rejection -------------------------
+
+      builder.addCase(coinsList.fulfilled, (state, action) => {
+        state.coinsList = action.payload;
+        state.paginationList = action.payload;
+        state.errorMsg.tableError = "";
+      });
+  
+      builder.addCase(singleCoin.fulfilled, (state, action) => {
+        state.singlecoin = action.payload;
+        state.errorMsg.singleCoinError = "";
+      });
+  
+      builder.addCase(historicalChart.fulfilled, (state, action) => {
+        state.chartData = action.payload;
+        state.errorMsg.chartError = "";
+      });
+  
+      builder.addCase(trending.fulfilled, (state, action) => {
+        state.trending = action.payload;
+      });
+
+    // ----------------- API Rejection -------------------------
     builder.addCase(coinsList.rejected, (state, action) => {
       const {status, coinsList, paginationList, msg} = action.payload as { status: false, login: true, coinsList: any[], paginationList: any[], msg: string }
       state.status = status;
       state.coinsList = coinsList
       state.paginationList = paginationList
       state.alertMsg = msg;
+      state.errorMsg.tableError = msg;
     });
 
     builder.addCase(historicalChart.rejected, (state, action) => {
@@ -160,12 +199,21 @@ export const values = createSlice({
       state.status = status;
       state.chartData = chartData
       state.alertMsg = msg;
+      state.errorMsg.chartError = msg;
     });
 
     builder.addCase(singleCoin.rejected, (state, action) => {
       const {status, singlecoin, msg} = action.payload as { status: false, login: true, singlecoin: any[], msg: string }
       state.status = status;
       state.singlecoin = singlecoin
+      state.alertMsg = msg;
+      state.errorMsg.singleCoinError = msg;
+    });
+
+    builder.addCase(trending.rejected, (state, action) => {
+      const {status, trending, msg} = action.payload as { status: boolean, login: boolean, trending: any[], msg: string }
+      state.status = status;
+      state.singlecoin = trending
       state.alertMsg = msg;
     });
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Auth } from '../utils/interface'
+import { Auth } from '../common/interface'
 
 export const AuthHOC = (OriginalComponent: React.ComponentType<Auth>) => {
 

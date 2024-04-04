@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import { User } from '../component/utils/interface';
+import { User } from '../component/common/interface';
 
 export const UseForm = () => {
   const [user, setUser] = useState<User>({ email: "", password: ""});

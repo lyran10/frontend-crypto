@@ -3,8 +3,10 @@ import { useRedux } from "../../customHooks/useRedux";
 import { useNavigate } from "react-router-dom";
 import { numberWithCommas } from "../banner/carousel";
 import { NextandPrev } from "./nextandPrev";
-import { TrendingCoins } from "../utils/interface";
+import { TrendingCoins } from "../common/interface";
 import "tippy.js/dist/tippy.css";
+import { spawn } from "child_process";
+import { ErrorMessages } from "../../constants/constants";
 
 export const Table = () => {
   const navigate = useNavigate();
@@ -20,6 +22,7 @@ export const Table = () => {
   const filteredList = methods.selector((state) => state.data.filteredList);
   const paginationList = methods.selector((state) => state.data.paginationList);
   const symbol = methods.selector((state) => state.data.symbol);
+  const { tableError } = methods.selector((state) => state.data.errorMsg);
 
   const getData = async () => {
     setList(paginationList);
@@ -86,13 +89,17 @@ export const Table = () => {
   };
 
   return (
-    <div
+    <>
+      {
+      !tableError
+      ? 
+      <div
       className={`${userLogin ? "w-[90vw]" : "w-[90vw]"
         } flex items-center justify-center flex-col`}
     >
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-[100%] justify-center items-center gap-y-7">
         {pagination
-          ? list.length
+          ? list && list.length
             ? visibleArray.map((row: any, index: number) => {
               let profit = row.price_change_percentage_24h >= 0;
               return coinCard(index, row, profit)
@@ -112,5 +119,11 @@ export const Table = () => {
         pagination={pagination}
       />
     </div>
+      :
+      <div>{tableError}</div>
+    }
+    </>
+  
+    
   );
 };

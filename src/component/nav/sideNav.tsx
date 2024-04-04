@@ -56,8 +56,6 @@ export const SideNav = ({
       ) : (
         <SignInButton
           navBg={navBg}
-          trueColor="text-[#191825]"
-          falseColor="text-[#191825]"
         />
       )}
     </div>

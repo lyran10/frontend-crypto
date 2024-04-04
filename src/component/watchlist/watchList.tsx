@@ -8,9 +8,11 @@ import { getwatchList, singleCoin, historicalChart, deleteCoin } from '../redux/
 import { removeData, showWatchList, getStatus } from '../redux/reducer'
 import { DeleteCoinButton } from './deleteCoinButton'
 import { Button } from './watchListButton'
+import ErrorBoundary from '../errorBoundaries/coinDataError'
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
+import { ErrorMessages } from '../../constants/constants'
 
 export const WatchList = () => {
   const [methods] = useRedux()
@@ -62,8 +64,11 @@ export const WatchList = () => {
           </Tippy>
         </div>
         <div className={`${watchListButton ? "w-[90vw] h-[450px]  md:w-[400px] lg:w-[400px] opacity-[1]" : "w-0 h-0 opacity-0 translate-x-[200px]"} duration-500 watchlist overflow-x-hidden`}>
+          <ErrorBoundary fallback='Server issue.Try in sometime.'>
           <ul className='flex flex-col justify-center w-[100%] py-3 gap-2'>
-            {coinslist ? coinslist.map(coin => {
+            { 
+            watchlist && watchlist.length ?
+            coinslist ? coinslist.map(coin => {
               if (watchlist.includes(coin.id)) {
                 return (
                   <li
@@ -88,8 +93,12 @@ export const WatchList = () => {
                 )
               }
 
-            }) : <div className='flex justify-center items-center'><span className='text-[15px] font-bold text-white'>No coins in the Watchlist</span></div>}
+            })
+             : <span className='text-[15px] font-bold text-[#f5f5f5]'>{ErrorMessages.SERVER_ERROR}</span>
+             : <span className='text-[15px] font-bold text-[#f5f5f5] text-center'>{ErrorMessages.WATCHLIST_ERROR}</span>
+            }
           </ul>
+          </ErrorBoundary>
         </div>
       </div>
     </div>

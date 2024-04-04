@@ -63,8 +63,7 @@ export const NavBar = () => {
             ) : (
               <SignInButton
                 navBg={navBg}
-                trueColor="text-[#190ab5]"
-                falseColor="text-offWhite"
+
               />
             )}
           </li>

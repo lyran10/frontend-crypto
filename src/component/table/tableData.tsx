@@ -3,18 +3,16 @@ import { useRedux } from "../../customHooks/useRedux";
 import { Input } from "./input";
 import { Table } from "./table";
 import { coinsList } from "../redux/actions";
+import ErrorBoundary from "../errorBoundaries/coinDataError";
+import { ErrorMessages } from "../../constants/constants";
 
 export const TableData = () => {
   const [methods] = useRedux()
   const [show, setShow] = useState<boolean>(false);
   const currency = methods.selector((state) => state.data.currency);
 
-  const getCointsList = async () => {
-    methods.dispatch(coinsList(currency));
-  };
-
   useEffect(() => {
-    getCointsList();
+    methods.dispatch(coinsList(currency));
   }, [currency]);
 
   useEffect(() => {

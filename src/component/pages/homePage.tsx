@@ -8,8 +8,10 @@ import { TableData } from "../table/tableData";
 import { findUser } from "../redux/actions";
 import { WatchList } from "../watchlist/watchList";
 import { CurrencyDropDown } from "../nav/currencyDropDown";
-import { AlertMsg } from "../utils/alertMsg";
+import { AlertMsg } from "../common/alertMsg";
 import { LoginAndSignInTabs } from "../auth/loginAndSignInTabs";
+import ErrorBoundary from "../errorBoundaries/coinDataError";
+import { ErrorMessages } from "../../constants/constants";
 
 export const HomePage = () => {
   const [methods] = useRedux()
@@ -30,7 +32,9 @@ export const HomePage = () => {
       className={`flex relative flex-col w-[100%] ${show ? "opacity-1" : "opacity-0"} duration-500 justify-center items-center gap-2`}>
       <NavBar />
       <Banner />
+      <ErrorBoundary fallback={ErrorMessages.SERVER_ERROR}>
       <TableData />
+      </ErrorBoundary>
       {login ? (
         <WatchList />
       ) : null}

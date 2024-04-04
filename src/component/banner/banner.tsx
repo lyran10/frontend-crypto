@@ -1,3 +1,5 @@
+import { ErrorMessages } from "../../constants/constants";
+import ErrorBoundry from "../errorBoundaries/coinDataError";
 import { Carousel } from "./carousel";
 
 export const Banner = () => {
