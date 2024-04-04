@@ -112,6 +112,7 @@ export const trending = createAsyncThunk(
   "crypto/trending",
   async (currency : string, { rejectWithValue }) => {
     try { const { data: { prices } } = await axios.get(trendingCoins(currency));
+         console.log(prices)
       return prices;
     } catch (error) {
      return rejectWithValue({ status: false, login: true, trending: [], msg: ErrorMessages.SERVER_ERROR })
