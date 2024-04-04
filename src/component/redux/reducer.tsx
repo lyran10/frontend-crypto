@@ -162,7 +162,7 @@ export const values = createSlice({
       state.alertMsg = action.payload.message;
     });
 
-      // ----------------- API Rejection -------------------------
+      // ----------------- API -------------------------
 
       builder.addCase(coinsList.fulfilled, (state, action) => {
         state.coinsList = action.payload;
@@ -181,6 +181,7 @@ export const values = createSlice({
       });
   
       builder.addCase(trending.fulfilled, (state, action) => {
+        console.log(action.payload)
         state.trending = action.payload;
       });
 
@@ -213,7 +214,7 @@ export const values = createSlice({
     builder.addCase(trending.rejected, (state, action) => {
       const {status, trending, msg} = action.payload as { status: boolean, login: boolean, trending: any[], msg: string }
       state.status = status;
-      state.singlecoin = trending
+      state.trending = trending
       state.alertMsg = msg;
     });
 
